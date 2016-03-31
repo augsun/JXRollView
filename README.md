@@ -19,3 +19,6 @@ The easiest way to create an infinite loop scroll view.
     };
     //step 4 在 dealloc 方法中调用释放
 
+## Who Use It
+[ShiBa](https://itunes.apple.com/cn/app/shi-ba-mian-fei-shi-yong-shi/id1073524695)
+
