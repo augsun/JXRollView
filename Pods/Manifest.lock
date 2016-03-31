@@ -19,8 +19,8 @@ PODS:
   - SDWebImage/Core (3.7.5)
 
 DEPENDENCIES:
-  - AFNetworking
-  - SDWebImage
+  - AFNetworking (= 3.0.4)
+  - SDWebImage (= 3.7.5)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
