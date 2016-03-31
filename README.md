@@ -18,5 +18,4 @@ The easiest way to create an infinite loop scroll view.
         NSLog(@"Tap The Index %ld!",index);
     };
     //step 4 在 dealloc 方法中调用释放
-==
-[![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat)](http://twitter.com/jianxingangel)
+##
