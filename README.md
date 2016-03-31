@@ -6,7 +6,7 @@
 The easiest way to create an infinite loop scroll view.
 </p>
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat)](http://twitter.com/jianxingangel)
-[](https://img.shields.io/sonar/http/sonar.qatools.ru/ru.yandex.qatools.allure:allure-core/coverage.svg)
+[![Platform](https://img.shields.io/cocoapods/p/AFNetworking.svg?style=flat)](http://cocoadocs.org/docsets/JXRollView)
 
     //step 1 创建 JXRollView
     _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, 110, WIDTH_SCREEN, WIDTH_SCREEN/2)];
