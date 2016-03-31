@@ -6,7 +6,7 @@
 <p align="center" >
 The easiest way to create an infinite loop scroll view.
 </p>
-=
+--
     //step 1 创建 JXRollView
     _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, 110, WIDTH_SCREEN, WIDTH_SCREEN/2)];
     
