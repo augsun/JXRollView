@@ -7,30 +7,43 @@ The easiest way to create an infinite loop scroll view.
 </p>
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
 ## How To Get Started
-    //step 1 Create JXRollView
-    _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, 110, WIDTH_SCREEN, WIDTH_SCREEN/2)];
-    
-    //step 2 Set array contained urls.
-    _jxRollView.arrImgStrUrls = arrImagesStrUrl;
-    
-    //step 3 Event callbacks.
+    //step 1 创建 JXRollView
     __weak __typeof(self) weakSelf = self;
-    _jxRollView.blockTapAction = ^(NSInteger index) {
-        NSLog(@"Tap The Index %ld!",index);
-        //If you reference self in this block, use strongSelf to avoid cycle reference wisely.
-        __strong __typeof(weakSelf) strongSelf = weakSelf;
-        if (strongSelf.view.isHidden) {
-            
-        }
-    };
+    _jxRollViewTypeImage = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLoc, wScreen, wScreen / imgRate)
+                                        indicatorImageNormal:[UIImage imageNamed:@"indicatorImageNormal"]
+                                     indicatorImageHighlight:[UIImage imageNamed:@"indicatorImageHighlight"]
+                                             animateInterval:2.f
+                                                   tapAction:^(NSInteger tapIndex) {
+                                                       NSLog(@"Tap The Index %ld!",tapIndex);
+                                                       __strong __typeof(weakSelf) strongSelf = weakSelf;
+                                                       // 该 block 里应该使用 strongSelf
+                                                       if (strongSelf.view.isHidden) {
+                                                           
+                                                       }
+                                                   }];
+    [self.view addSubview:_jxRollViewTypeImage];
     
-    //step 4 Release _jxRollView in dealloc method;
+    //step 2 开始滚动
+    [_jxRollViewTypeImage jx_RefreshRollViewByUrls:arrUrls];
+    
+    //step 3 在父对象销毁之前释放 JXRollView
     /*
      -(void)dealloc {
         [self.jxRollView jx_Free];
      }
      */
 
+    // optional
+    /*
+     *  如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在
+     1. JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;(详见 demo)
+     2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;(详见 demo)
+     */
+
+## License
+
+JXRollView is distributed under the terms and conditions of the [MIT license](http://rem.mit-license.org/).
 ## Who Use It
 [ShiBa](https://itunes.apple.com/cn/app/shi-ba-mian-fei-shi-yong-shi/id1073524695)
+
 

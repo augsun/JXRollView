@@ -5,6 +5,6 @@ platform :ios, '8.0'
 
 target 'JXRollView' do
     pod 'SDWebImage', '3.7.5'
-    pod 'AFNetworking', '3.0.4'
+#    pod 'AFNetworking', '3.0.4'
 end
 

@@ -14,7 +14,8 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) JXRollView *jxRollView;
+@property (nonatomic, strong) JXRollView *jxRollViewTypeImage;
+@property (nonatomic, strong) JXRollView *jxRollViewTypeColor;
 
 @end
 
@@ -24,47 +25,72 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    NSArray *arrImagesStrUrl = @[
-                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725034403725.jpg",
-                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725025802743.png",
-                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725025502036.png",
-                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725025102481.png",
-                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201505/20150527/20150527001812082.png",
-                                 ];
+#define STR_CAT(str1, str2)     [NSString stringWithFormat:@"%@%@", str1, str2]
+    NSString *strUrlBase = @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/";
+    NSArray <NSURL *> *arrUrls = @[
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725034403725.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725025802743.png")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725025502036.png")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725025102481.png")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201505/20150527/20150527001812082.png")],
+                                   ];
+#undef STR_CAT
+    CGFloat yLoc = 100;
+    CGFloat imgRate = 2.f;
+    CGFloat wScreen = [UIScreen mainScreen].bounds.size.width;
     
-    //step 1 Create JXRollView
-    _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, 110, WIDTH_SCREEN, WIDTH_SCREEN/2)];
-    
-    //step 2 Set array contained urls.
-    _jxRollView.arrImgStrUrls = arrImagesStrUrl;
-    
-    //step 3 Event callbacks.
+    //step 1 创建 JXRollView
     __weak __typeof(self) weakSelf = self;
-    _jxRollView.blockTapAction = ^(NSInteger index) {
-        NSLog(@"Tap The Index %ld!",index);
-        //If you reference self in this block, use strongSelf to avoid cycle reference wisely.
-        __strong __typeof(weakSelf) strongSelf = weakSelf;
-        if (strongSelf.view.isHidden) {
-            
-        }
-    };
+    _jxRollViewTypeImage = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLoc, wScreen, wScreen / imgRate)
+                                        indicatorImageNormal:[UIImage imageNamed:@"indicatorImageNormal"]
+                                     indicatorImageHighlight:[UIImage imageNamed:@"indicatorImageHighlight"]
+                                             animateInterval:2.f
+                                                   tapAction:^(NSInteger tapIndex) {
+                                                       NSLog(@"Tap The Index %ld!",tapIndex);
+                                                       __strong __typeof(weakSelf) strongSelf = weakSelf;
+                                                       // 该 block 里应该使用 strongSelf
+                                                       if (strongSelf.view.isHidden) {
+                                                           
+                                                       }
+                                                   }];
+    [self.view addSubview:_jxRollViewTypeImage];
     
-    //step 4 Release _jxRollView in dealloc method;
+    //step 2 开始滚动
+    [_jxRollViewTypeImage jx_RefreshRollViewByUrls:arrUrls];
+    
+    //step 3 在父对象销毁之前释放 JXRollView
     /*
      -(void)dealloc {
         [self.jxRollView jx_Free];
      }
      */
 
-    
-    
-    
+    // optional
     /*
      *  如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在
      1. JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;(详见 demo)
      2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;(详见 demo)
      */
-    [self.view addSubview:_jxRollView];
+    
+    CGFloat spa_Edge = 30;
+    CGRect rectJXRollViewTypeColor = CGRectMake(spa_Edge,
+                                                yLoc + _jxRollViewTypeImage.frame.size.height + spa_Edge,
+                                                200,
+                                                120);
+    _jxRollViewTypeColor = [[JXRollView alloc] initWithFrame:rectJXRollViewTypeColor
+                                        indicatorColorNormal:[UIColor grayColor]
+                                     indicatorColorHighlight:[UIColor orangeColor]
+                                             animateInterval:1.f
+                                                   tapAction:^(NSInteger tapIndex) {
+                                                   
+                                                   }];
+    [self.view addSubview:_jxRollViewTypeColor];
+    [_jxRollViewTypeColor jx_RefreshRollViewByUrls:arrUrls];
+    
+    
+    
+    
+    
 
 }
 
@@ -81,7 +107,8 @@
 }
 
 -(void)dealloc {
-    [self.jxRollView jx_Free];
+    [self.jxRollViewTypeImage jx_Free];
+    [self.jxRollViewTypeColor jx_Free];
 }
 
 
