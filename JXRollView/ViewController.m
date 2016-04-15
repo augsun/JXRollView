@@ -22,8 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     NSArray *arrImagesStrUrl = @[
@@ -31,19 +29,35 @@
                                  @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725025802743.png",
                                  @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725025502036.png",
                                  @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201507/20150725/20150725025102481.png",
-                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201505/20150527/20150527001812082.png"
+                                 @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/201505/20150527/20150527001812082.png",
                                  ];
-    //step 1 创建 JXRollView
+    
+    //step 1 Create JXRollView
     _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, 110, WIDTH_SCREEN, WIDTH_SCREEN/2)];
     
-    //step 2 图片 URL 数据
+    //step 2 Set array contained urls.
     _jxRollView.arrImgStrUrls = arrImagesStrUrl;
     
-    //step 3 事件回调
+    //step 3 Event callbacks.
+    __weak __typeof(self) weakSelf = self;
     _jxRollView.blockTapAction = ^(NSInteger index) {
         NSLog(@"Tap The Index %ld!",index);
+        //If you reference self in this block, use strongSelf to avoid cycle reference wisely.
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        if (strongSelf.view.isHidden) {
+            
+        }
     };
-    //step 4 在 dealloc 方法中调用释放
+    
+    //step 4 Release _jxRollView in dealloc method;
+    /*
+     -(void)dealloc {
+        [self.jxRollView jx_Free];
+     }
+     */
+
+    
+    
     
     /*
      *  如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在

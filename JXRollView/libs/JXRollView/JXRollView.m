@@ -46,9 +46,10 @@ UIScrollViewDelegate
     return self;
 }
 
-//if associate from xib to JXRollView class reimplementation - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder; method
+// if associate from xib to JXRollView class reimplementation - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder; method
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
+#warning The frame in the method is unlayout, to say exactly, JXRollView in xib is (320, 240), run in the (375w or 414w) device, the frame is (320, 240), so, use [UIScreen mainScreen] if you want have a screen's width JXRollView, if no, recommend you init JXRollView by - (instancetype)initWithFrame:(CGRect)frame to create a JXRollView by custom frame in you project.
         [self createComponentByWidth:self.frame.size.width height:self.frame.size.height];
     }
     return self;
