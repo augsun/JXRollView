@@ -63,20 +63,22 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
     }
     
     CGFloat wIndicator = _arrImgViews.count*(INDICATOR_SPA_INTERITEM + INDICATOR_SIDES) - INDICATOR_SPA_INTERITEM;
-    CGFloat xLocFirstImgView = (self.frame.size.width - wIndicator)/2;
+    CGFloat xLocFirstImgView = (self.frame.size.width - wIndicator) / 2;
     for (NSInteger i = 0; i < _arrImgViews.count; i ++) {
         UIImageView *imgViewTemp = _arrImgViews[i];
         CGRect rectTemp = imgViewTemp.frame;
-        rectTemp.origin.x = xLocFirstImgView + i*(INDICATOR_SPA_INTERITEM + INDICATOR_SIDES);
+        rectTemp.origin.x = xLocFirstImgView + i * (INDICATOR_SPA_INTERITEM + INDICATOR_SIDES);
         imgViewTemp.frame = rectTemp;
         imgViewTemp.image = i == _currentPage ? _imgIndicatorHighlight : _imgIndicatorNormal;
     }
 }
 
 - (void)setCurrentPage:(NSUInteger)currentPage {
-    _arrImgViews[_currentPage].image = _imgIndicatorNormal;
-    _arrImgViews[currentPage].image = _imgIndicatorHighlight;
-    _currentPage = currentPage;
+    if (_arrImgViews.count > 0 && currentPage <= _arrImgViews.count) {
+        _arrImgViews[_currentPage].image = _imgIndicatorNormal;
+        _arrImgViews[currentPage].image = _imgIndicatorHighlight;
+        _currentPage = currentPage;
+    }
 }
 
 @end
@@ -212,13 +214,13 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
     [self addGestureRecognizer:tap];
     
     // 当 JXRollView 不在屏幕上显示的时候(push 或 present 新视图控制器 或 程序进入后台)，应该暂停滚动。
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jxRollViewPause) name:JXROLLVIEW_PAUSE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jxRollViewPlay) name:JXROLLVIEW_PLAY object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiRollViewPause) name:JXROLLVIEW_PAUSE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiRollViewPlay) name:JXROLLVIEW_PLAY object:nil];
     
     
 }
 
-
+#pragma mark 开始 或 刷新 JXRollView
 - (void)jx_RefreshRollViewByUrls:(NSArray<NSURL *> *)urls {
     _arrUrls = urls;
     _pageTotal = urls.count;
@@ -274,7 +276,7 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
             
         case JXRollDirectionToLeft: {
             _pageCurrent ++;
-            if (_pageCurrent > _pageTotal-1) {
+            if (_pageCurrent > _pageTotal - 1) {
                 _pageCurrent = 0;
             }
         } break;
@@ -292,12 +294,14 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
 
 -(void)setImgs {
     for (NSInteger i = 0; i < 3; i ++) {
-        NSInteger getIndex = _pageCurrent-1+i;
-        if (getIndex < 0)
+        NSInteger getIndex = _pageCurrent - 1 + i;
+        if (getIndex < 0) {
             getIndex = _pageTotal-1;
-        if (getIndex > _pageTotal-1)
+        }
+        if (getIndex > _pageTotal-1) {
             getIndex = 0;
-        UIImageView *imgView = (UIImageView *)[_scrollView viewWithTag:i + IMGVIEW_TAG_BASE];
+        }
+        UIImageView *imgView = (UIImageView *)[_scrollView viewWithTag:IMGVIEW_TAG_BASE + i];
         imgView.image = _imgPlaceholder;
         if (_arrImages.count > getIndex) {
             if (_arrImages[getIndex] == _imgPlaceholder) {
@@ -307,7 +311,9 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
                     }
                 }];
             }
-            else imgView.image = _arrImages[getIndex];
+            else {
+                imgView.image = _arrImages[getIndex];
+            }
         }
     }
 }
@@ -320,11 +326,11 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
 }
 
 #pragma mark - 收到 暂停/播放 通知
--(void)jxRollViewPause {
+-(void)notiRollViewPause {
     [self.timer setFireDate:[NSDate distantFuture]];
 }
 
--(void)jxRollViewPlay {
+-(void)notiRollViewPlay {
     [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:_animateInterval]];
 }
 

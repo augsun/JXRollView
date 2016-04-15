@@ -35,13 +35,13 @@
                                    [NSURL URLWithString:STR_CAT(strUrlBase, @"201505/20150527/20150527001812082.png")],
                                    ];
 #undef STR_CAT
-    CGFloat yLoc = 100;
+    CGFloat yLocation = 100;
     CGFloat imgRate = 2.f;
     CGFloat wScreen = [UIScreen mainScreen].bounds.size.width;
     
     //step 1 创建 JXRollView
     __weak __typeof(self) weakSelf = self;
-    _jxRollViewTypeImage = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLoc, wScreen, wScreen / imgRate)
+    _jxRollViewTypeImage = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate)
                                         indicatorImageNormal:[UIImage imageNamed:@"indicatorImageNormal"]
                                      indicatorImageHighlight:[UIImage imageNamed:@"indicatorImageHighlight"]
                                              animateInterval:2.f
@@ -68,13 +68,13 @@
     // optional
     /*
      *  如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在
-     1. JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;(详见 demo)
+     1. 在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;(详见 demo)
      2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;(详见 demo)
      */
     
     CGFloat spa_Edge = 30;
     CGRect rectJXRollViewTypeColor = CGRectMake(spa_Edge,
-                                                yLoc + _jxRollViewTypeImage.frame.size.height + spa_Edge,
+                                                yLocation + _jxRollViewTypeImage.frame.size.height + spa_Edge,
                                                 200,
                                                 120);
     _jxRollViewTypeColor = [[JXRollView alloc] initWithFrame:rectJXRollViewTypeColor
