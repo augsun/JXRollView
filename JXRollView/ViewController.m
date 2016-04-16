@@ -69,6 +69,7 @@
      2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;(详见 demo)
      */
     
+    
 #pragma mark 创建 pageControl 为自定义颜色 的 JXRollView
     CGFloat spa_Edge = 30;
     CGRect rectJXRollViewTypeColor = CGRectMake(spa_Edge,

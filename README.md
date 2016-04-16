@@ -7,7 +7,7 @@ The easiest way to create an infinite loop scroll view.
 </p>
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
 ## How To Get Started
-#pragma mark 以创建 pageControl 为自定义图片 的 JXRollView 为例
+######以创建 pageControl 为自定义图片 的 JXRollView 为例
     // step 1 创建 JXRollView
     __weak __typeof(self) weakSelf = self;
     _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate)
@@ -40,7 +40,7 @@ The easiest way to create an infinite loop scroll view.
 ## License
 
 JXRollView is distributed under the terms and conditions of the [MIT license](http://rem.mit-license.org/).
-## Who Use It
+## Who Use It 
 [ShiBa](https://itunes.apple.com/cn/app/shi-ba-mian-fei-shi-yong-shi/id1073524695)
 
 
