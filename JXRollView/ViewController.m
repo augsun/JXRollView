@@ -62,13 +62,15 @@
     [_jxRollView jx_refreshRollViewByUrls:arrUrls];
     
     // STEP 3 在父对象销毁之前释放 JXRollView
-    /*(详见 示例代码)*/
+    /*
+     * (详见 demo)
+     */
     
     // STEP 4 (optional)
     /*
-     *  如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在
-     1. 在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;(详见 demo)
-     2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;(详见 demo)
+     * 如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在
+     * (详见 demo)1. 在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;
+     * (详见 demo)2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;
      */
     
     
