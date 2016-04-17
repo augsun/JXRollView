@@ -183,15 +183,20 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     [_scrollView setDelegate:self];
     
     // _pagCtl
-    CGRect rectPageCtlFrame = CGRectMake(0, _selfHeight - JXPAGECTL_H - JXPAGECTL_TO_BOTTOM, _selfWidth, JXPAGECTL_H);
     if (_rollViewPageType == JXRollViewPageTypeImage) {
-        _pageControlImage = [[JXPageControl alloc] initWithFrame:rectPageCtlFrame];
+        _pageControlImage = [[JXPageControl alloc] initWithFrame:CGRectMake(0,
+                                                                            _selfHeight - JXPAGECTL_H - JXPAGECTL_TO_BOTTOM,
+                                                                            _selfWidth,
+                                                                            JXPAGECTL_H)];
         [self addSubview:_pageControlImage];
         [_pageControlImage setImgIndicatorNormal:indicatorImageNormal];
         [_pageControlImage setImgIndicatorHighlight:indicatorImageHighlight];
     }
     else {
-        _pageControlColor = [[UIPageControl alloc] initWithFrame:rectPageCtlFrame];
+        _pageControlColor = [[UIPageControl alloc] initWithFrame:CGRectMake(0,
+                                                                            _selfHeight - JXPAGECTL_H - JXPAGECTL_TO_BOTTOM + 5,
+                                                                            _selfWidth,
+                                                                            JXPAGECTL_H)];
         [self addSubview:self.pageControlColor];
         if (indicatorColorNormal) {
             [_pageControlColor setPageIndicatorTintColor:indicatorColorNormal];
@@ -263,7 +268,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     }
 }
 
-- (void)jx_RefreshRollViewByUrls:(NSArray<NSURL *> *)urls {
+- (void)jx_refreshRollViewByUrls:(NSArray<NSURL *> *)urls {
     [self rollViewPause];
     
     self.arrUrls = urls;
@@ -377,7 +382,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     }
 }
 
-- (void)jx_Free {
+- (void)jx_free {
     self.scrollView.delegate = nil;
     [self.timer invalidate];
 }

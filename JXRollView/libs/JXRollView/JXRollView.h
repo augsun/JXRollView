@@ -59,12 +59,12 @@ typedef void (^JXBlockTapAction)(NSInteger tapIndex);
  *
  *  @param urls 图片 url 数组
  */
-- (void)jx_RefreshRollViewByUrls:(NSArray <NSURL *> *)urls;
+- (void)jx_refreshRollViewByUrls:(NSArray <NSURL *> *)urls;
 
 /**
  *  父类释放的时候调用，以释放 JXRollView
  */
--(void)jx_Free;
+-(void)jx_free;
 
 @end
 
