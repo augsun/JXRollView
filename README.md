@@ -6,6 +6,14 @@
 The easiest way to create an infinite loop scroll view.
 </p>
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
+
+## Installation
+1. Download the [latest version](https://github.com/augsun/JXRollView/archive/master.zip).
+
+2. Open your project in Xcode, then drag and drop `JXRollView.h` and `JXRollView.m` onto your project (use the "Product Navigator view"). Make sure to select Copy items when asked if you extracted the code archive outside of your project.
+3. Include JXRollView wherever you need it with `#import "JXRollView.h"`.
+
+
 ## How To Get Started
 ######以创建 pageControl 为自定义图片 的 JXRollView 为例
     // STEP 1 创建 JXRollView
@@ -37,7 +45,7 @@ The easiest way to create an infinite loop scroll view.
     
 ## License
 
-JXRollView is distributed under the terms and conditions of the [MIT license](http://rem.mit-license.org/).
+JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).See LICENSE for details.
 ## Who Use It 
 [ShiBa](https://itunes.apple.com/cn/app/shi-ba-mian-fei-shi-yong-shi/id1073524695)
 
