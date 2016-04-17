@@ -6,7 +6,7 @@
 //  Copyright © 2015 AugSun. All rights reserved.
 //
 
-//  JXRollView (https://github.com/augsun/JXRollView)
+//  JXRollView /* https://github.com/augsun/JXRollView */
 //  JXRollView 是一个依赖于 SDWebImage 无限循环滚动（轮播）视图，内部由 3 个 UIImageView 复用实现。
 //  JXRollView 实现方式极其简单，可创建两种不同 pageControl 的 JXRollView（详见Demo，可自行选择一种实现）。
 //  JXRollView 只要传入 图片 url 数组即可。
