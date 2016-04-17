@@ -49,26 +49,34 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.userInteractionEnabled = NO;
         _arrImgViews = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)setNumberOfPages:(NSUInteger)numberOfPages {
-    _numberOfPages = numberOfPages;
-    NSInteger currentNumberOfPages = self.arrImgViews.count;
-    for (NSInteger i = self.arrImgViews.count; i < _numberOfPages - currentNumberOfPages; i ++) {
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,
-                                                                             (self.frame.size.height-INDICATOR_SIDES)/2,
-                                                                             INDICATOR_SIDES,
-                                                                             INDICATOR_SIDES)];
-        [self addSubview:imgView];
-        [self.arrImgViews addObject:imgView];
+    if (self.numberOfPages < numberOfPages) {
+        for (NSInteger i = self.numberOfPages; i < numberOfPages; i ++) {
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,
+                                                                                 (self.frame.size.height - INDICATOR_SIDES) / 2,
+                                                                                 INDICATOR_SIDES,
+                                                                                 INDICATOR_SIDES)];
+            [self addSubview:imgView];
+            [self.arrImgViews addObject:imgView];
+        }
     }
+    else {
+        for (NSInteger i = 0; i < self.numberOfPages - numberOfPages; i ++) {
+            [[self.arrImgViews lastObject] removeFromSuperview];
+            [self.arrImgViews removeLastObject];
+        }
+    }
+    _numberOfPages = numberOfPages;
     
-    CGFloat wIndicator = self.arrImgViews.count*(INDICATOR_SPA_INTERITEM + INDICATOR_SIDES) - INDICATOR_SPA_INTERITEM;
+    CGFloat wIndicator = self.numberOfPages * (INDICATOR_SPA_INTERITEM + INDICATOR_SIDES) - INDICATOR_SPA_INTERITEM;
     CGFloat xLocFirstImgView = (self.frame.size.width - wIndicator) / 2;
-    for (NSInteger i = 0; i < self.arrImgViews.count; i ++) {
+    for (NSInteger i = 0; i < self.numberOfPages; i ++) {
         UIImageView *imgViewTemp = self.arrImgViews[i];
         CGRect rectTemp = imgViewTemp.frame;
         rectTemp.origin.x = xLocFirstImgView + i * (INDICATOR_SPA_INTERITEM + INDICATOR_SIDES);
@@ -78,9 +86,11 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 }
 
 - (void)setCurrentPage:(NSUInteger)currentPage {
-    self.arrImgViews[_currentPage].image = self.imgIndicatorNormal;
-    self.arrImgViews[currentPage].image = self.imgIndicatorHighlight;
-    _currentPage = currentPage;
+    if (self.numberOfPages > 0) {
+        self.arrImgViews[_currentPage].image = self.imgIndicatorNormal;
+        self.arrImgViews[currentPage].image = self.imgIndicatorHighlight;
+        _currentPage = currentPage;
+    }
 }
 
 @end
@@ -213,6 +223,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     
     // 背景颜色
+    self.clipsToBounds = YES;
     self.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0f];
     
     // 事件响应链条
@@ -232,21 +243,34 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     
 }
 
-#pragma mark
+- (void)setCurrentPage:(NSInteger)currentPage {
+    _currentPage = currentPage;
+    if (self.rollViewPageType == JXRollViewPageTypeImage) {
+        self.pageControlImage.currentPage = self.currentPage;
+    }
+    else {
+        self.pageControlColor.currentPage = self.currentPage;
+    }
+}
+
+- (void)setNumberOfPages:(NSInteger)numberOfPages {
+    _numberOfPages = numberOfPages;
+    if (self.rollViewPageType == JXRollViewPageTypeImage) {
+        self.pageControlImage.numberOfPages = self.numberOfPages;
+    }
+    else {
+        self.pageControlColor.numberOfPages = self.numberOfPages;
+    }
+}
+
 - (void)jx_RefreshRollViewByUrls:(NSArray<NSURL *> *)urls {
-    if (urls.count > 0) {
-        [self rollViewPause];
-        self.arrUrls = urls;
-        self.currentPage = 0;
-        self.numberOfPages = self.arrUrls.count;
-        
-        if (self.rollViewPageType == JXRollViewPageTypeImage) {
-            self.pageControlImage.numberOfPages = self.numberOfPages;
-        }
-        else {
-            self.pageControlColor.numberOfPages = self.numberOfPages;
-        }
-        
+    [self rollViewPause];
+    
+    self.arrUrls = urls;
+    self.numberOfPages = self.arrUrls.count;
+    self.currentPage = 0;
+    
+    if (self.numberOfPages > 0) {
         [self.arrImages removeAllObjects];
         for (NSInteger i = 0; i < self.numberOfPages; i ++) {
             [self.arrImages addObject:self.imgPlaceholder];
@@ -255,24 +279,33 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
         [self refreshImages];
         [self rollViewPlay];
     }
+    else {
+        for (UIImageView *imgView in self.arrImgViews) {
+            imgView.image = nil;
+        }
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.timer setFireDate:[NSDate distantFuture]];
+    if (self.arrUrls.count > 0) {
+        [self rollViewPause];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:self.animateInterval]];
+    if (self.arrUrls.count > 0) {
+        [self rollViewPlay];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.arrImages.count > 0) {
+    if (self.arrUrls.count > 0) {
         CGFloat xOffSet = scrollView.contentOffset.x;
-        if (xOffSet < self.selfWidth / 2.f + SPA_INTERITEM / 2.f) {
-            scrollView.contentOffset = CGPointMake(self.selfWidth + xOffSet + SPA_INTERITEM, 0);
+        if (xOffSet < (self.selfWidth + SPA_INTERITEM) * 0.5f) {
+            scrollView.contentOffset = CGPointMake(xOffSet + self.selfWidth + SPA_INTERITEM, 0);
             [self changePageByDirection:JXRollDirectionTORight];
         }
-        if (xOffSet > self.selfWidth * 1.5f + SPA_INTERITEM * 1.5) {
+        if (xOffSet > (self.selfWidth + SPA_INTERITEM) * 1.5f) {
             scrollView.contentOffset = CGPointMake(xOffSet - self.selfWidth - SPA_INTERITEM, 0);
             [self changePageByDirection:JXRollDirectionToLeft];
         }
@@ -280,29 +313,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 }
 
 -(void)changePageByDirection:(JXRollDirection)rollDirection {
-    switch (rollDirection) {
-        case JXRollDirectionTORight: {
-            self.currentPage --;
-            if (self.currentPage < 0) {
-                self.currentPage = self.numberOfPages - 1;
-            }
-        } break;
-            
-        case JXRollDirectionToLeft: {
-            self.currentPage ++;
-            if (self.currentPage > self.numberOfPages - 1) {
-                self.currentPage = 0;
-            }
-        } break;
-            
-        default: break;
-    }
-    if (self.rollViewPageType == JXRollViewPageTypeImage) {
-        self.pageControlImage.currentPage = self.currentPage;
-    }
-    else {
-        self.pageControlColor.currentPage = self.currentPage;
-    }
+    self.currentPage = (self.numberOfPages + self.currentPage + (rollDirection == JXRollDirectionToLeft ? 1 : -1)) % self.numberOfPages;
     [self refreshImages];
 }
 
@@ -310,10 +321,13 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     for (NSInteger i = 0; i < 3; i ++) {
         NSInteger getIndex = (self.numberOfPages + self.currentPage - 1 + i) % self.numberOfPages;
         if (self.arrImages[getIndex] == self.imgPlaceholder) {
-            [self.arrImgViews[i] sd_setImageWithURL:self.arrUrls[getIndex] placeholderImage:self.imgPlaceholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [self.arrImgViews[i] sd_setImageWithURL:self.arrUrls[getIndex] placeholderImage:self.imgPlaceholder options:SDWebImageHighPriority | SDWebImageAvoidAutoSetImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 if (image) {
                     @try {
                         [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
+                        if (self.arrImgViews[i].image == self.imgPlaceholder) {
+                            self.arrImgViews[i].image = self.arrImages[getIndex];
+                        }
                     }
                     @catch (NSException *exception) { }
                     @finally { }
@@ -321,7 +335,6 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
             }];
         }
         else {
-            [self.arrImgViews[i] sd_cancelCurrentImageLoad];
             self.arrImgViews[i].image = self.arrImages[getIndex];
         }
     }
@@ -330,7 +343,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
         NSInteger getIndex = (self.numberOfPages + self.currentPage + 2 + i) % self.numberOfPages;
         if (self.arrImages[getIndex] == self.imgPlaceholder) {
             [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                if (image) {
+                if (finished && image) {
                     @try {
                         [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
                     }

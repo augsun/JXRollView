@@ -26,14 +26,18 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
 #define STR_CAT(str1, str2)     [NSString stringWithFormat:@"%@%@", str1, str2]
-    NSString *strUrlBase = @"http://juhuituan.boguyuan.com/juhuituan/file_upload/myt/";
+    NSString *strUrlBase = @"http://img.51shiba.com/";
     NSArray <NSURL *> *arrUrls = @[
-                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725034403725.jpg")],
-                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725025802743.png")],
-                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725025502036.png")],
-                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201507/20150725/20150725025102481.png")],
-                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"201505/20150527/20150527001812082.png")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/02/FE/Cvmki1b80S-AcaM0AAEnegwfb4Y261.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/03/46/Cvmki1cLVTWASqItAACZKcsjVhY117.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/02/FF/Cvmki1b80W2ARBqqAAFQE2bkZ-Q237.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/03/46/Cvmki1cLUgiAcObtAAC6ifYCX8g118.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/02/FF/Cvmki1b80WyASlfhAAES1pEwsjI653.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/03/39/Cvmki1cHUXeAPQn6AACgVAcdtk0325.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/03/39/Cvmki1cHLd-AEMkUAADiBAlh4VU041.jpg")],
+                                   [NSURL URLWithString:STR_CAT(strUrlBase, @"M00/03/38/Cvmki1cHJiCASqhdAACZreZxFCw557.jpg")],
                                    ];
+
 #undef STR_CAT
     CGFloat yLocation = 100;
     CGFloat imgRate = 2.f;
@@ -45,9 +49,9 @@
     _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate)
                                indicatorImageNormal:[UIImage imageNamed:@"indicatorImageNormal"]
                             indicatorImageHighlight:[UIImage imageNamed:@"indicatorImageHighlight"]
-                                    animateInterval:2.f
+                                    animateInterval:3.f
                                           tapAction:^(NSInteger tapIndex) {
-                                              NSLog(@"Tap The Index %ld!",tapIndex);
+                                              NSLog(@"Tap The Index %ld!", (long)tapIndex);
                                               __strong __typeof(weakSelf) strongSelf = weakSelf;
                                               // 该 block 里应该使用 strongSelf
                                               if (strongSelf.view.isHidden) {
@@ -79,7 +83,7 @@
     _jxRollViewAnotherKind = [[JXRollView alloc] initWithFrame:rectJXRollViewTypeColor
                                           indicatorColorNormal:[UIColor grayColor]
                                        indicatorColorHighlight:[UIColor orangeColor]
-                                               animateInterval:1.f
+                                               animateInterval:2.f
                                                      tapAction:^(NSInteger tapIndex) {
                                                      
                                                      }];
