@@ -11,7 +11,6 @@
 //  JXRollView 实现方式极其简单，可创建两种不同 pageControl 的 JXRollView（详见Demo，可自行选择一种实现）。
 //  JXRollView 只要传入 图片 url 数组即可。
 
-
 #import <UIKit/UIKit.h>
 
 @interface JXRollView : UIView

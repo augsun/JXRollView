@@ -33,13 +33,11 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 #pragma mark -
 @interface JXPageControl : UIView
 
-@property (nonatomic, assign) NSUInteger        currentPage;
-@property (nonatomic, assign) NSUInteger        numberOfPages;
-
-@property (nonatomic, strong) UIImage           *imgIndicatorNormal;
-@property (nonatomic, strong) UIImage           *imgIndicatorHighlight;
-
-@property (nonatomic, strong) NSMutableArray <UIImageView *> *arrImgViews;
+@property (nonatomic, assign) NSUInteger            currentPage;                //
+@property (nonatomic, assign) NSUInteger            numberOfPages;              //
+@property (nonatomic, strong) UIImage               *imgIndicatorNormal;        //
+@property (nonatomic, strong) UIImage               *imgIndicatorHighlight;     //
+@property (nonatomic, strong) NSMutableArray <UIImageView *> *arrImgViews;      //
 
 @end
 
@@ -99,21 +97,21 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 #pragma mark -
 @interface JXRollView () <UIScrollViewDelegate>
 
-@property (nonatomic, strong)   NSArray <NSURL *>       *arrUrls;
-@property (nonatomic, assign)   CGFloat                 selfWidth;              //width of JXRollView
-@property (nonatomic, assign)   CGFloat                 selfHeight;             //height of JXRollView
-@property (nonatomic, strong)   UIScrollView            *scrollView;
-@property (nonatomic, strong)   JXPageControl           *pageControlImage;      // 自定义图片 pageControl
-@property (nonatomic, strong)   UIPageControl           *pageControlColor;      // 自定义颜色 pageControl
-@property (nonatomic, assign)   JXRollViewPageType      rollViewPageType;       // pageControl 类型
+@property (nonatomic, strong)   NSArray <NSURL *>       *arrUrls;               //
+@property (nonatomic, assign)   CGFloat                 selfWidth;              //
+@property (nonatomic, assign)   CGFloat                 selfHeight;             //
+@property (nonatomic, strong)   UIScrollView            *scrollView;            //
+@property (nonatomic, strong)   JXPageControl           *pageControlImage;      //
+@property (nonatomic, strong)   UIPageControl           *pageControlColor;      //
+@property (nonatomic, assign)   JXRollViewPageType      rollViewPageType;       //
 
-@property (nonatomic, assign)   NSInteger               currentPage;            // 当前页
-@property (nonatomic, assign)   NSInteger               numberOfPages;          // 总页数
+@property (nonatomic, assign)   NSInteger               currentPage;            //
+@property (nonatomic, assign)   NSInteger               numberOfPages;          //
 @property (nonatomic, strong)   NSMutableArray <UIImage *>      *arrImages;     //
 @property (nonatomic, strong)   NSMutableArray <UIImageView *>  *arrImgViews;   //
-@property (nonatomic, strong)   UIImage                 *imgPlaceholder;
-@property (nonatomic, assign)   NSTimeInterval          animateInterval;
-@property (nonatomic, strong)   NSTimer                 *timer;                 //定时器
+@property (nonatomic, strong)   UIImage                 *imgPlaceholder;        //
+@property (nonatomic, assign)   NSTimeInterval          animateInterval;        //
+@property (nonatomic, strong)   NSTimer                 *timer;                 //
 
 @end
 
@@ -172,7 +170,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     _arrImgViews = [[NSMutableArray alloc] init];
     _imgPlaceholder = [[UIImage alloc] init];
     
-    // _scrollView
+    //
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _selfWidth + SPA_INTERITEM, _selfHeight)];
     [self addSubview:_scrollView];
     [_scrollView setContentSize:CGSizeMake(3*(_selfWidth + SPA_INTERITEM), _selfHeight)];
@@ -182,7 +180,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     [_scrollView setScrollsToTop:NO];
     [_scrollView setDelegate:self];
     
-    // _pagCtl
+    //
     if (_rollViewPageType == JXRollViewPageTypeImage) {
         _pageControlImage = [[JXPageControl alloc] initWithFrame:CGRectMake(0,
                                                                             _selfHeight - JXPAGECTL_H - JXPAGECTL_TO_BOTTOM,
@@ -207,7 +205,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
         [_pageControlColor setUserInteractionEnabled:NO];
     }
     
-    // 3 个复用的 UIImageView
+    //
     for (NSInteger i = 0; i < 3; i ++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * (_selfWidth + SPA_INTERITEM), 0, _selfWidth, _selfHeight)];
         [_scrollView addSubview:imgView];
@@ -218,7 +216,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
         [self.arrImgViews addObject:imgView];
     }
     
-    // _timer
+    //
     _timer = [[NSTimer alloc] initWithFireDate:[NSDate distantFuture]
                                       interval:_animateInterval
                                         target:self
@@ -227,15 +225,15 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
                                        repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     
-    // 背景颜色
+    //
     self.clipsToBounds = YES;
     self.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0f];
     
-    // 事件响应链条
+    //
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     [self addGestureRecognizer:tap];
     
-    // 当 JXRollView 不在屏幕上显示的时候(push 或 present 新视图控制器 或 程序进入后台)，应该暂停滚动。
+    //
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(rollViewPause)
                                                  name:JXROLLVIEW_PAUSE
@@ -326,8 +324,8 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     for (NSInteger i = 0; i < 3; i ++) {
         NSInteger getIndex = (self.numberOfPages + self.currentPage - 1 + i) % self.numberOfPages;
         if (self.arrImages[getIndex] == self.imgPlaceholder) {
-            [self.arrImgViews[i] sd_setImageWithURL:self.arrUrls[getIndex] placeholderImage:self.imgPlaceholder options:SDWebImageHighPriority | SDWebImageAvoidAutoSetImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                if (image) {
+            [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:SDWebImageRetryFailed | SDWebImageHighPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                if (finished && image) {
                     @try {
                         [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
                         if (self.arrImgViews[i].image == self.imgPlaceholder) {
@@ -347,7 +345,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     for (NSInteger i = 0; i < (self.numberOfPages - 3 > 1 ? 2 : self.numberOfPages - 3) ; i ++) {
         NSInteger getIndex = (self.numberOfPages + self.currentPage + 2 + i) % self.numberOfPages;
         if (self.arrImages[getIndex] == self.imgPlaceholder) {
-            [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:SDWebImageLowPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 if (finished && image) {
                     @try {
                         [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
