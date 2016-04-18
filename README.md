@@ -10,7 +10,7 @@ The easiest way to create an infinite loop scroll view.
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
 
 <p align="right" >
-NO BEST ONLY CLOSER
+NO BEST ONLY CLOSER.
 </p>
 
 

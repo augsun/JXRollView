@@ -131,6 +131,7 @@
 
 
 
+
 - (void)dealloc {
     [_jxRollView jx_free];
     [_jxRollViewAnotherKind jx_free];
