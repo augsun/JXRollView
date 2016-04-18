@@ -110,6 +110,7 @@
 
 }
 
+//在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 #warning JXRollView: best to do so.
@@ -130,10 +131,10 @@
 
 
 
--(void)dealloc {
-    [self.jxRollView jx_free];
-    [self.jxRollViewAnotherKind jx_free];
-    [self.jxRollViewLast jx_free];
+- (void)dealloc {
+    [_jxRollView jx_free];
+    [_jxRollViewAnotherKind jx_free];
+    [_jxRollViewLast jx_free];
 }
 
 - (void)didReceiveMemoryWarning {

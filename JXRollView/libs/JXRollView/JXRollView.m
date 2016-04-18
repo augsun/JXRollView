@@ -160,15 +160,17 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
          indicatorImageHighlight:(UIImage *)indicatorImageHighlight
                  animateInterval:(NSTimeInterval)animateInterval
                        tapAction:(JXBlockTapAction)tapAction {
-    _selfWidth = frame.size.width;
-    _selfHeight = frame.size.height;
-    _rollViewPageType = indicatorImageNormal && indicatorImageHighlight ? JXRollViewPageTypeImage : JXRollViewPageTypeColor;
-    _animateInterval = animateInterval < 1 || animateInterval > 8 ? INTERVAL_ANIM_DEF : animateInterval;
-    _blockTapAction = tapAction;
-    
-    _arrImages = [[NSMutableArray alloc] init];
-    _arrImgViews = [[NSMutableArray alloc] init];
-    _imgPlaceholder = [[UIImage alloc] init];
+    //
+    [self setClipsToBounds:YES];
+    [self setBlockTapAction:tapAction];
+    [self setSelfWidth:frame.size.width];
+    [self setSelfHeight:frame.size.height];
+    [self setBackgroundColor:[UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0f]];
+    [self setAnimateInterval:animateInterval < 1 || animateInterval > 8 ? INTERVAL_ANIM_DEF : animateInterval];
+    [self setRollViewPageType:indicatorImageNormal && indicatorImageHighlight ? JXRollViewPageTypeImage : JXRollViewPageTypeColor];
+    [self setArrImages:[[NSMutableArray alloc] init]];
+    [self setArrImgViews:[[NSMutableArray alloc] init]];
+    [self setImgPlaceholder:[[UIImage alloc] init]];
     
     //
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _selfWidth + SPA_INTERITEM, _selfHeight)];
@@ -226,10 +228,6 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     
     //
-    self.clipsToBounds = YES;
-    self.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0f];
-    
-    //
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     [self addGestureRecognizer:tap];
     
@@ -279,6 +277,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
             [self.arrImages addObject:self.imgPlaceholder];
         }
         
+        [self downloadImages];
         [self refreshImages];
         [self rollViewPlay];
     }
@@ -286,6 +285,25 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
         for (UIImageView *imgView in self.arrImgViews) {
             imgView.image = nil;
         }
+    }
+}
+
+- (void)downloadImages {
+    for (NSInteger i = 0; i < self.numberOfPages; i ++) {
+        NSInteger getIndex = (self.numberOfPages + self.currentPage - 1 + i) % self.numberOfPages;
+        SDWebImageOptions webImageOptions = i < 3 ? SDWebImageHighPriority : SDWebImageLowPriority;
+        [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:webImageOptions | SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            if (finished && image) {
+                @try {
+                    [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
+                    if (getIndex >= self.currentPage - 1 && getIndex <= self.currentPage + 1) {
+                        [self refreshImages];
+                    }
+                }
+                @catch (NSException *exception) { }
+                @finally { }
+            }
+        }];
     }
 }
 
@@ -323,38 +341,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 - (void)refreshImages {
     for (NSInteger i = 0; i < 3; i ++) {
         NSInteger getIndex = (self.numberOfPages + self.currentPage - 1 + i) % self.numberOfPages;
-        if (self.arrImages[getIndex] == self.imgPlaceholder) {
-            [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:SDWebImageRetryFailed | SDWebImageHighPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                if (finished && image) {
-                    @try {
-                        [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
-                        if (self.arrImgViews[i].image == self.imgPlaceholder) {
-                            self.arrImgViews[i].image = self.arrImages[getIndex];
-                        }
-                    }
-                    @catch (NSException *exception) { }
-                    @finally { }
-                }
-            }];
-        }
-        else {
-            self.arrImgViews[i].image = self.arrImages[getIndex];
-        }
-    }
-    
-    for (NSInteger i = 0; i < (self.numberOfPages - 3 > 1 ? 2 : self.numberOfPages - 3) ; i ++) {
-        NSInteger getIndex = (self.numberOfPages + self.currentPage + 2 + i) % self.numberOfPages;
-        if (self.arrImages[getIndex] == self.imgPlaceholder) {
-            [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[getIndex] options:SDWebImageLowPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                if (finished && image) {
-                    @try {
-                        [self.arrImages replaceObjectAtIndex:getIndex withObject:image];
-                    }
-                    @catch (NSException *exception) { }
-                    @finally { }
-                }
-            }];
-        }
+        self.arrImgViews[i].image = self.arrImages[getIndex];
     }
 }
 
