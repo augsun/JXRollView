@@ -49,7 +49,7 @@ The easiest way to create an infinite loop scroll view.
         [super viewWillDisappear:animated];
         [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PAUSE object:nil];
     }
-######2, 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;
+######2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;
 	- (void)applicationDidEnterBackground:(UIApplication *)application {
         [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PAUSE object:nil];
     }
