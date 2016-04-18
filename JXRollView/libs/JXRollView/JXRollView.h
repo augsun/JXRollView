@@ -21,7 +21,7 @@ typedef void (^JXBlockTapAction)(NSInteger tapIndex);
 @property (nonatomic, copy) JXBlockTapAction blockTapAction;
 
 /**
- *  创建 pageControl 为自定义图片 的 JXRollView
+ *  创建 pageControl 为自定义图片🌋 的 JXRollView
  *
  *  @param frame                   frame
  *  @param indicatorImageNormal    非当前 indicator 图片 (图片默认宽高 11，需要修改在 .m 文件中修改宏 INDICATOR_SIDES) （为空则生成 pageControl 为自定义颜色 的 JXRollView）
@@ -38,7 +38,7 @@ typedef void (^JXBlockTapAction)(NSInteger tapIndex);
                     tapAction:(JXBlockTapAction)tapAction;
 
 /**
- *  创建 pageControl 为自定义颜色 的 JXRollView
+ *  创建 pageControl 为自定义颜色🔴 的 JXRollView
  *
  *  @param frame                   frame
  *  @param indicatorColorNormal    非当前 indicator 颜色 （为空则使用系统默认）
