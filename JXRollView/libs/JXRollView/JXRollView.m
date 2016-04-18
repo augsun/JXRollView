@@ -9,7 +9,7 @@
 #import "JXRollView.h"
 #import "UIImageView+WebCache.h"
 
-#define INTERVAL_ANIM_DEF           3.0f        // 滚动动画间隔
+#define INTERVAL_ANIM_DEF           3.0f        // 默认滚动动画间隔
 #define SPA_INTERITEM               8           // 滚动图片的间距
 
 #define JXPAGECTL_H                 20.f        // JXPageCtl 的高 (JXPAGECTL_H 要大于 INDICATOR_SIDES)
@@ -43,8 +43,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 
 @implementation JXPageControl
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.userInteractionEnabled = NO;
@@ -175,7 +174,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     //
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _selfWidth + SPA_INTERITEM, _selfHeight)];
     [self addSubview:_scrollView];
-    [_scrollView setContentSize:CGSizeMake(3*(_selfWidth + SPA_INTERITEM), _selfHeight)];
+    [_scrollView setContentSize:CGSizeMake(3 * (_selfWidth + SPA_INTERITEM), _selfHeight)];
     [_scrollView setContentOffset:CGPointMake(_selfWidth + SPA_INTERITEM, 0)];
     [_scrollView setShowsHorizontalScrollIndicator:NO];
     [_scrollView setPagingEnabled:YES];
