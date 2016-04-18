@@ -264,7 +264,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     }
 }
 
-- (void)jx_refreshRollViewByUrls:(NSArray<NSURL *> *)urls {
+- (void)jx_refreshRollViewByUrls:(NSArray <NSURL *> *)urls {
     [self rollViewPause];
     
     self.arrUrls = urls;
@@ -308,19 +308,19 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (self.arrUrls.count > 0) {
+    if (self.numberOfPages > 0) {
         [self rollViewPause];
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (self.arrUrls.count > 0) {
+    if (self.numberOfPages > 0) {
         [self rollViewPlay];
     }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.arrUrls.count > 0) {
+    if (self.numberOfPages > 0) {
         CGFloat xOffSet = scrollView.contentOffset.x;
         if (xOffSet < (self.selfWidth + SPA_INTERITEM) * 0.5f) {
             scrollView.contentOffset = CGPointMake(xOffSet + self.selfWidth + SPA_INTERITEM, 0);
@@ -356,7 +356,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 }
 
 - (void)rollViewPlay {
-    if (self.arrUrls.count > 0) {
+    if (self.numberOfPages > 0) {
         [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:self.animateInterval]];
     }
 }
