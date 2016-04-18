@@ -333,7 +333,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     }
 }
 
--(void)changePageByDirection:(JXRollDirection)rollDirection {
+- (void)changePageByDirection:(JXRollDirection)rollDirection {
     self.currentPage = (self.numberOfPages + self.currentPage + (rollDirection == JXRollDirectionToLeft ? 1 : -1)) % self.numberOfPages;
     [self refreshImages];
 }
@@ -355,7 +355,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     [self.timer setFireDate:[NSDate distantFuture]];
 }
 
--(void)rollViewPlay {
+- (void)rollViewPlay {
     if (self.arrUrls.count > 0) {
         [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:self.animateInterval]];
     }
@@ -372,27 +372,21 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     [self.timer invalidate];
 }
 
+
+
+
+
+
+
+
+
+
+
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"dealloc -> %@",NSStringFromClass([self class]));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.
