@@ -1,10 +1,15 @@
 
 <p align="center" >
-  <img src="https://github.com/augsun/JXRollView/blob/master/JXRollView/Assets.xcassets/AppIcon.appiconset/JXRollView_180.png" alt="JXRollView" title="JXRollView">
+  <img src="https://github.com/augsun/JXRollView/blob/master/JXRollView/Assets.xcassets/AppIcon.appiconset/JXRollView_180.png?raw=true" alt="JXRollView" title="JXRollView">
 </p>
 
 <p align="center" >
 The easiest way to create an infinite loop scroll view.
+</p>
+
+<p align="center" >
+  <img src="https://github.com/augsun/JXRollView/blob/master/JXRollView/indicatorImage.gif?raw=true" alt="JXRollView" title="indicatorImage">
+  <img src="https://github.com/augsun/JXRollView/blob/master/JXRollView/indicatorColor.gif?raw=true" alt="JXRollView" title="indicatorColor">
 </p>
 
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
