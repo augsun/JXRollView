@@ -8,8 +8,8 @@ The easiest way to create an infinite loop scroll view.
 </p>
 
 <p align="center" >
-  <img src="https://github.com/augsun/JXRollView/blob/master/JXRollView/indicatorImage.gif?raw=true" alt="JXRollView" title="indicatorImage">
-  <img src="https://github.com/augsun/JXRollView/blob/master/JXRollView/indicatorColor.gif?raw=true" alt="JXRollView" title="indicatorColor">
+  <img src="https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/indicatorImage.gif" alt="JXRollView" title="indicatorImage">
+  <img src="https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/indicatorColor.gif" alt="JXRollView" title="indicatorColor">
 </p>
 
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
