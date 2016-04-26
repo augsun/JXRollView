@@ -340,7 +340,9 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 - (void)refreshImages {
     for (NSInteger i = 0; i < 3; i ++) {
         NSInteger getIndex = (self.numberOfPages + self.currentPage - 1 + i) % self.numberOfPages;
-        self.arrImgViews[i].image = self.arrImages[getIndex];
+        if (getIndex < self.arrImages.count) {
+            self.arrImgViews[i].image = self.arrImages[getIndex];
+        }
     }
 }
 
@@ -361,7 +363,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 }
 
 - (void)tapAction {
-    if (self.blockTapAction && self.arrImages[self.currentPage] != self.imgPlaceholder) {
+    if (self.blockTapAction) {
         self.blockTapAction (self.currentPage);
     }
 }
