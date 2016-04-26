@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) JXRollView *jxRollView;
 @property (nonatomic, strong) JXRollView *jxRollViewAnotherKind;
-
 @property (nonatomic, strong) JXRollView *jxRollViewLast;
 
 @end
@@ -26,7 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor colorWithRed:239/255.f green:239/255.f blue:244/255.f alpha:1.f];
+//    self.view.backgroundColor = [UIColor colorWithRed:239/255.f green:239/255.f blue:244/255.f alpha:1.f];
+    self.view.backgroundColor = [UIColor grayColor];
 #define STR_CAT2(str1, str2)    [NSString stringWithFormat:@"%@%@", str1, str2]
 #define URL_FROM_NAME(name)     [NSURL URLWithString:STR_CAT2(strUrlBase, STR_CAT2(name, STR_CAT2(strWScreen, @".jpg")))]
     NSString *strWScreen = [NSString stringWithFormat:@".%ld", (long)[UIScreen mainScreen].bounds.size.width];
