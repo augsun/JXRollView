@@ -8,8 +8,7 @@ The easiest way to create an infinite loop scroll view.
 </p>
 
 <p align="center" >
-  <img src="https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/indicatorImage.gif" alt="JXRollView" title="indicatorImage">
-  <img src="https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/indicatorColor.gif" alt="JXRollView" title="indicatorColor">
+  <img src="https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/jxRollView.gif" alt="JXRollView" title="jxRollView">
 </p>
 
 [![Twitter](https://img.shields.io/badge/twitter-@jianxingangel-blue.svg?style=flat-square)](http://twitter.com/jianxingangel)
@@ -17,7 +16,6 @@ The easiest way to create an infinite loop scroll view.
 <p align="right" >
 NO BEST ONLY CLOSER.
 </p>
-
 
 ## Installation 
 #####Installation with CocoaPods is coming soon...Without it is also very simple as follows.
