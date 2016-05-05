@@ -120,13 +120,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 #warning JXRollView: best to do so.
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PLAY object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 #warning JXRollView: best to do so.
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PAUSE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
 }
 
 - (void)rollViewTapIndex:(NSInteger)tapIndex {

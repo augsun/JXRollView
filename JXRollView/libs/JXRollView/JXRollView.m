@@ -9,6 +9,9 @@
 #import "JXRollView.h"
 #import "UIImageView+WebCache.h"
 
+NSString *const JXRollViewPlay = @"JXRollViewPlay";
+NSString *const JXRollViewPause = @"JXRollViewPause";
+
 #define INTERVAL_ANIM_DEF           3.0f        // 默认滚动动画间隔
 #define SPA_INTERITEM               8           // 滚动图片的间距
 
@@ -235,11 +238,11 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     //
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(rollViewPause)
-                                                 name:JXROLLVIEW_PAUSE
+                                                 name:JXRollViewPause
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(rollViewPlay)
-                                                 name:JXROLLVIEW_PLAY
+                                                 name:JXRollViewPlay
                                                object:nil];
     
     

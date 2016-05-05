@@ -12,7 +12,11 @@
 //  JXRollView 只要传入 图片 url 数组即可。
 
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+UIKIT_EXTERN NSString *const JXRollViewPlay;
+UIKIT_EXTERN NSString *const JXRollViewPause;
 
 @interface JXRollView : UIView
 

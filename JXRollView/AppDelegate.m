@@ -18,6 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
+    NSLog(@"%@", JXRollViewPlay);
+    
     return YES;
 }
 
@@ -33,12 +36,12 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 #warning JXRollView: best to do so.
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PAUSE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 #warning JXRollView: best to do so.
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PLAY object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
