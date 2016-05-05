@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>JXRollView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JXRollView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,27 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0B225E20A84B4570F54D677A73FC2CBA</key>
+		<key>0DB700A034AB36CD673BED57E3F4456B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>51922BE596F3386D952BC72BDDBF35CF</key>
+		<key>452D55FB7C9BDCDF037A928EAC86A046</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55BC968A5FF655A57C6E4E48507E30B2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>928353533005A4198EBDA5B700D37B64</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EB509E75E616EC437C9885412343496A</key>
+		<key>886B26E19D9B06144551A63B53AE6BC9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

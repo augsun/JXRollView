@@ -17,14 +17,8 @@ The easiest way to create an infinite loop scroll view.
 NO BEST ONLY CLOSER.
 </p>
 
-## Installation with CocoaPods 
-
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like JXRollView in your projects.You can install it with the following command:
-
-    pod 'JXRollView', '1.2.2'
-
-## Installation through manually
-
+## Installation 
+#####Installation with CocoaPods is coming soon...Without it is also very simple as follows.
 1. Download the [latest version](https://github.com/augsun/JXRollView/archive/master.zip).
 
 2. Open your project in Xcode, then drag and drop `JXRollView.h` and `JXRollView.m` onto your project (use the "Product Navigator view"). Make sure to select Copy items when asked if you extracted the code archive outside of your project.

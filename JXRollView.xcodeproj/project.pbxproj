@@ -18,7 +18,6 @@
 		718F012A1CACC9D70081F9E9 /* JXRollViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 718F01291CACC9D70081F9E9 /* JXRollViewUITests.m */; };
 		71BE0BA71CC12B5B00A81385 /* indicatorImageHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE0BA51CC12B5B00A81385 /* indicatorImageHighlight.png */; };
 		71BE0BA81CC12B5B00A81385 /* indicatorImageNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE0BA61CC12B5B00A81385 /* indicatorImageNormal.png */; };
-		71E3B6601CACCB4400FE724C /* JXRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E3B65F1CACCB4400FE724C /* JXRollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +60,6 @@
 		71BE0BA41CC1295B00A81385 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		71BE0BA51CC12B5B00A81385 /* indicatorImageHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicatorImageHighlight.png; sourceTree = "<group>"; };
 		71BE0BA61CC12B5B00A81385 /* indicatorImageNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicatorImageNormal.png; sourceTree = "<group>"; };
-		71E3B65E1CACCB4400FE724C /* JXRollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRollView.h; sourceTree = "<group>"; };
-		71E3B65F1CACCB4400FE724C /* JXRollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +113,6 @@
 		718F01031CACC9D70081F9E9 /* JXRollView */ = {
 			isa = PBXGroup;
 			children = (
-				71E3B65C1CACCB3600FE724C /* libs */,
 				718F01071CACC9D70081F9E9 /* AppDelegate.h */,
 				718F01081CACC9D70081F9E9 /* AppDelegate.m */,
 				718F010A1CACC9D70081F9E9 /* ViewController.h */,
@@ -157,23 +153,6 @@
 				718F012B1CACC9D70081F9E9 /* Info.plist */,
 			);
 			path = JXRollViewUITests;
-			sourceTree = "<group>";
-		};
-		71E3B65C1CACCB3600FE724C /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				71E3B65D1CACCB4400FE724C /* JXRollView */,
-			);
-			path = libs;
-			sourceTree = "<group>";
-		};
-		71E3B65D1CACCB4400FE724C /* JXRollView */ = {
-			isa = PBXGroup;
-			children = (
-				71E3B65E1CACCB4400FE724C /* JXRollView.h */,
-				71E3B65F1CACCB4400FE724C /* JXRollView.m */,
-			);
-			path = JXRollView;
 			sourceTree = "<group>";
 		};
 		85CB9938ADDB27D1BB5BDF0E /* Frameworks */ = {
@@ -377,7 +356,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				718F010C1CACC9D70081F9E9 /* ViewController.m in Sources */,
-				71E3B6601CACCB4400FE724C /* JXRollView.m in Sources */,
 				718F01091CACC9D70081F9E9 /* AppDelegate.m in Sources */,
 				718F01061CACC9D70081F9E9 /* main.m in Sources */,
 			);
