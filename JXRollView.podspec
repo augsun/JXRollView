@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JXRollView"
-  s.version      = "1.2.0"
+  s.version      = "1.2.1"
   s.summary      = "The easiest way to create an infinite loop scroll view."
 
   # This description is used to generate tags and improve search results.
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
     s.description  = <<-DESC
-                        The easiest way to create an infinite loop scroll view.
+                        The easiest way to create an infinite loop scroll view.Only need a few simple steps.
                         DESC
   s.homepage     = "https://github.com/augsun/JXRollView"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
