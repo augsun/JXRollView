@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
     JXRollViewPageTypeColor
 };
 
-//====================================================================================================
+// ====================================================================================================
 #pragma mark -
 @interface JXPageControl : UIView
 
@@ -84,7 +84,9 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 
 - (void)setCurrentPage:(NSUInteger)currentPage {
     if (self.numberOfPages > 0) {
-        self.arrImgViews[_currentPage].image = self.imgIndicatorNormal;
+        if (_currentPage < self.arrImgViews.count) {
+            self.arrImgViews[_currentPage].image = self.imgIndicatorNormal;
+        }
         self.arrImgViews[currentPage].image = self.imgIndicatorHighlight;
         _currentPage = currentPage;
     }
@@ -92,7 +94,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 
 @end
 
-//====================================================================================================
+// ====================================================================================================
 #pragma mark -
 @interface JXRollView () <UIScrollViewDelegate>
 
@@ -364,6 +366,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewPageType) {
 
 - (void)tapAction {
     if (self.blockTapAction) {
+        [self rollViewPlay];
         self.blockTapAction (self.currentPage);
     }
 }
