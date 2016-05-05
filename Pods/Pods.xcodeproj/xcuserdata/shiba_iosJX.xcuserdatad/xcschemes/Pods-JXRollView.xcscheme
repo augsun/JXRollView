@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0E1E9F6DAA93D21FC3E14C88'
+               BlueprintIdentifier = '3FD9FF93098E91A73C7E4373'
                BlueprintName = 'Pods-JXRollView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-JXRollView.a'>

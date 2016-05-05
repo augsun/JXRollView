@@ -15,10 +15,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-UIKIT_EXTERN NSString *const JXRollViewPlay;
-UIKIT_EXTERN NSString *const JXRollViewPause;
+UIKIT_EXTERN NSString *const JXRollViewPlay NS_AVAILABLE_IOS(8_0);
+UIKIT_EXTERN NSString *const JXRollViewPause NS_AVAILABLE_IOS(8_0);
 
-@interface JXRollView : UIView
+NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
 
 typedef void (^JXBlockTapAction)(NSInteger tapIndex);
 

@@ -1,15 +1,12 @@
 PODS:
-  - JXRollView (1.2.2):
-    - SDWebImage (~> 3.7.5)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
 
 DEPENDENCIES:
-  - JXRollView (= 1.2.2)
+  - SDWebImage (= 3.7.5)
 
 SPEC CHECKSUMS:
-  JXRollView: 64cec30fa4d314b629a08dea231dcc76aa1b0996
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
 
 COCOAPODS: 0.39.0

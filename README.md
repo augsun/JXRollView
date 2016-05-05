@@ -21,7 +21,7 @@ NO BEST ONLY CLOSER.
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like JXRollView in your projects.You can install it with the following command:
 
-    pod 'JXRollView', '1.2.2'
+    pod 'JXRollView', '1.2.3'
 
 ## Installation through manually
 
@@ -55,28 +55,28 @@ NO BEST ONLY CLOSER.
     }
     
 ####4. (OPTIONAL) 如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在:
-######1. 在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;
+######1). 在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;
 	- (void)viewDidAppear:(BOOL)animated {
         [super viewDidAppear:animated];
-        [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PLAY object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
     }
 
     - (void)viewWillDisappear:(BOOL)animated {
         [super viewWillDisappear:animated];
-        [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PAUSE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
     }
-######2. 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;
+######2). 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;
 	- (void)applicationDidEnterBackground:(UIApplication *)application {
-        [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PAUSE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
     }
     
     - (void)applicationWillEnterForeground:(UIApplication *)application {
-        [[NSNotificationCenter defaultCenter] postNotificationName:JXROLLVIEW_PLAY object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
     }
 
      
 ## License
-JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).See LICENSE for details.
+JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).
 
 ## Who Use It 
 [SHIBA](https://itunes.apple.com/cn/app/shi-ba-mian-fei-shi-yong-shi/id1073524695)

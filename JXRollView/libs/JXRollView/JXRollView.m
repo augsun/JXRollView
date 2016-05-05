@@ -9,8 +9,8 @@
 #import "JXRollView.h"
 #import "UIImageView+WebCache.h"
 
-NSString *const JXRollViewPlay = @"JXRollViewPlay";
-NSString *const JXRollViewPause = @"JXRollViewPause";
+NSString *const JXRollViewPlay      = @"jxRollViewPlay";
+NSString *const JXRollViewPause     = @"jxRollViewPause";
 
 #define INTERVAL_ANIM_DEF           3.0f        // 默认滚动动画间隔
 #define SPA_INTERITEM               8           // 滚动图片的间距
