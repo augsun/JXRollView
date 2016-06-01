@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UIImageView+WebCache.h"
 #import "JXRollView.h"
 
 @interface AppDelegate ()
@@ -19,7 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
-    NSLog(@"%@", JXRollViewPlay);
+    [[SDImageCache sharedImageCache] cleanDisk];
+    [[SDImageCache sharedImageCache] clearDisk];
     
     return YES;
 }
@@ -35,13 +37,11 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-#warning JXRollView: best to do so.
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-#warning JXRollView: best to do so.
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
