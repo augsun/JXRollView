@@ -32,7 +32,6 @@ NO BEST ONLY CLOSER.
 
 
 ## How To Get Started
-######Create a JXRollView with image indicator.
 ####1. Create JXRollView.
 ```objc
 - (nonnull JXRollView *)initWithFrame:(CGRect)frame
@@ -66,7 +65,7 @@ NO BEST ONLY CLOSER.
 - (void)reloadData;
 ```
   
-####4. It call free in the method of it's owner's dealloc method. 
+####4. Call free in it's owner's dealloc method. 
 ```objc
 - (void)free;
 ```
