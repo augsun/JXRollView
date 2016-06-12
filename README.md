@@ -21,7 +21,7 @@ NO BEST ONLY CLOSER.
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like JXRollView in your projects.You can install it with the following command:
 
-    pod 'JXRollView', '1.2.3'
+    pod 'JXRollView'
 
 ## Installation through manually
 
@@ -32,49 +32,45 @@ NO BEST ONLY CLOSER.
 
 
 ## How To Get Started
-######以创建 pageControl 为自定义图片 的 JXRollView 为例
-####1. (create) 创建 JXRollView
+######Create a JXRollView with image indicator.
+####1. Create JXRollView.
+```objc
+- (nonnull JXRollView *)initWithFrame:(CGRect)frame
+                   pageIndicatorColor:(nullable UIColor *)pageIndicatorColor
+            currentPageIndicatorColor:(nullable UIColor *)currentPageIndicatorColor;
+```
+#####or
+```objc
+- (nonnull JXRollView *)initWithFrame:(CGRect)frame
+                   pageIndicatorImage:(nullable UIImage *)pageIndicatorImage
+            currentPageIndicatorImage:(nullable UIImage *)currentPageIndicatorImage;
+```
 
-    __weak __typeof(self) weakSelf = self;
-    _jxRollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate)
-                               indicatorImageNormal:[UIImage imageNamed:@"indicatorImageNormal"]
-                            indicatorImageHighlight:[UIImage imageNamed:@"indicatorImageHighlight"]
-                                    animateInterval:M_PI
-                                          tapAction:^(NSInteger tapIndex) {
-                                              __strong __typeof(weakSelf) strongSelf = weakSelf;
-                                              [strongSelf rollViewTapIndex:tapIndex];
-                                          }];
-    [self.view addSubview:_jxRollView];
-    
-####2. (start rolling) 开始滚动
-    [_jxRollView jx_refreshRollViewByUrls:arrUrls];
-    
-####3. (release) 在父对象销毁之前释放 JXRollView
-	- (void)dealloc {
-        [_jxRollView jx_free];
-    }
-    
-####4. (OPTIONAL) 如果不想在 JXRollView 所在页面出现闪滚(从子页面返回 或 从后台切换到前台), 即 JXRollView 所在页每次出现都重新滚动(非从第一张), 则在:
-######1). 在 JXRollView 所在页面的 viewDidAppear 和 viewWillDisappear 发送相应通知;
-	- (void)viewDidAppear:(BOOL)animated {
-        [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
-    }
 
-    - (void)viewWillDisappear:(BOOL)animated {
-        [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
-    }
-######2). 在 AppDelegate applicationDidEnterBackground 和 applicationWillEnterForeground 发送相应通知;
-	- (void)applicationDidEnterBackground:(UIApplication *)application {
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPause object:nil];
-    }
-    
-    - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [[NSNotificationCenter defaultCenter] postNotificationName:JXRollViewPlay object:nil];
-    }
+####2. Implement the method of JXRollViewDelegate.
+```objc
+@protocol JXRollViewDelegate <NSObject>
 
-     
+@required
+- (NSInteger)numberOfItemsInRollView:(nonnull JXRollView *)rollView;
+- (nonnull NSURL *)rollView:(nonnull JXRollView *)rollView urlForItemAtIndex:(NSInteger)index;
+
+@optional
+- (void)rollView:(nonnull JXRollView *)rollView didSelectItemAtIndex:(NSInteger)index;
+
+@end
+```
+    
+####3. It reload data.
+```objc
+- (void)reloadData;
+```
+  
+####4. It call free in the method of it's owner's dealloc method. 
+```objc
+- (void)free;
+```
+
 ## License
 JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).
 

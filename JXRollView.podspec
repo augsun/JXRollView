@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JXRollView"
-  s.version      = "1.2.3"
+  s.version      = "2.0.0"
   s.summary      = "The easiest way to create an infinite loop scroll view."
 
   # This description is used to generate tags and improve search results.
@@ -82,7 +82,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-    s.source_files  = "JXRollView/libs/JXRollView"
+    s.source_files  = "JXRollView/**/*.{h,m}"
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"

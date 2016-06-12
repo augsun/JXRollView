@@ -14,47 +14,56 @@
 NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
 
 /**
- *  代理 (使用与 UITableView 代理类似)
+ *  JXRollView's delegate, (Use the delegate similar to UITableView.)
+ *  JXRollView 的代理, (使用代理与 UITableView 类似.)
  */
 @property (nonatomic, weak, nullable) id <JXRollViewDelegate> delegate;
 
 /**
- *  占拉图片
+ *  Placeholder image.
+ *  占位图.
  */
 @property (nonatomic, strong, nonnull) UIImage *placeholderImage;
 
 /**
- *  图片模式 默认 UIViewContentModeScaleAspectFill
+ *  View content model. Default is UIViewContentModeScaleAspectFill.
+ *  视图的内容模式. 默认 UIViewContentModeScaleAspectFill.
  */
 @property (nonatomic, assign) UIViewContentMode imageContentMode;
 
 /**
- *  图片之间的间距 默认 8pt
+ *  Inter item of image space. Default is 8pt.
+ *  图片之间的间距 默认 8pt.
  */
 @property (nonatomic, assign) CGFloat interitemSpacing;
 
 /**
- *  是否自动滚动 默认 YES
+ *  Auto-scroll. Default is YES.
+ *  自动滚动 默认 YES.
  */
 @property (nonatomic, assign) BOOL autoRoll;
 
 /**
- *  自动滚动时间间隔 (>= 1 && <= 5) 默认 3s
+ *  Auto scroll time interval(>= 1s && <= 5s). Default is 3s.
+ *  自动滚动时间间隔 (>= 1s && <= 5s) 默认 3s.
  */
 @property (nonatomic, assign) CGFloat autoRollTimeInterval;
 
 /**
- *  页面指示器距底部的距离 默认 8pt
+ *  Spacing from the bottom of self to page indicator. Default is 8pt.
+ *  页面指示器距底部的距离 默认 8pt.
  */
-@property (nonatomic, assign) CGFloat indicatorToBottomSpace;
+@property (nonatomic, assign) CGFloat indicatorToBottomSpacing;
 
 /**
- *  Hide the indicator if there is only one item. default is NO
+ *  Hide the indicator if there is only one item, and then scroll is disabled. Default is NO.
+ *  如果只有一张图片时自动隐藏指示器, 同时滚动禁用. 默认 NO.
  */
-@property (nonatomic, assign) BOOL hidesForSinglePage;
+@property (nonatomic, assign) BOOL hideIndicatorForSinglePage;
 
 /**
- *  Create a JXRollView with color indicator.
+ *  Create a JXRollView of system style with custom color🔴 indicator.
+ *  创建系统样式页面指示器为自定义颜色的 JXRollView.
  *
  *  @param frame                     Frame
  *  @param pageIndicatorColor        Custom color for page indicator.
@@ -67,7 +76,8 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
             currentPageIndicatorColor:(nullable UIColor *)currentPageIndicatorColor;
 
 /**
- *  Create a JXRollView with image indicator.
+ *  Create a JXRollView with custom image🌋 indicator.
+ *  创建页面指示器为自定义图片的 JXRollView.
  *
  *  @param frame                      Frame
  *  @param pageIndicatorImage         Custom iamge for page indicator, image size ( >= 4 && <= 18)pt.
@@ -79,7 +89,14 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
                    pageIndicatorImage:(nullable UIImage *)pageIndicatorImage
             currentPageIndicatorImage:(nullable UIImage *)currentPageIndicatorImage;
 
+/**
+ *  Similar to UITableView.
+ */
 - (void)reloadData;
+
+/**
+ *  <#Description#>
+ */
 - (void)free;
 
 @end

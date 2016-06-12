@@ -9,18 +9,16 @@
 #import "JXRollView.h"
 #import "UIImageView+WebCache.h"
 
-#define JXROLLVIEW_ROLL_INTERVAL_DEFAULT                3.f         // 默认滚动间隔
-#define JXROLLVIEW_TIMER_CYCLE                          .2f         // 定时器周期
-#define JXROLLVIEW_INTERITEM_SPACE                      8.f         // 滚动图片的间距
+const CGFloat JXAutoRollTimeIntervalDefault         = 3.f;  // 默认滚动间隔
+const CGFloat JXTimerCycle                          = .2f;  // 定时器周期
+const CGFloat JXInteritemSpacingDefault             = 8.f;  // 滚动图片的间距
+const CGFloat JXIndicatorToBottomSpacingDefault     = 8.f;  // pageControl 到底部的距离
+const CGFloat JXSystemIndicatorSide                 = 7.f;  // 系统 indicator 边长
 
-
-#define INDICATOR_TO_BOTTOM_SPACINT_DEFAULT             8.f         // JXPageCtl 到底部的距离
-#define SYS_INDICATOR_SIDE                              7.f         // 系统 indicator 边长
-
-//以下宏定义只对 indicatorImage 有效
-#define INDICATOR_SIDE_MIN                              4.f         // indicatorImage 的最小尺寸
-#define INDICATOR_SIDE_MAX                              18.f        // indicatorImage 的最大尺寸
-#define INDICATOR_INTERITEM_SPACE                       8.f         // 两个 indicator 之间的距离
+//以下常量只对针对 indicatorImage
+const CGFloat JXIndicatorSideMin                    = 4.f;  // indicatorImage 的最小尺寸
+const CGFloat JXIndicatorSideMax                    = 18.f; // indicatorImage 的最大尺寸
+const CGFloat JXIndicatorInteritemSpacing           = 8.f;  // 两个 indicator 之间的距离
 
 typedef NS_ENUM(NSUInteger, JXRollViewIndicatorStyle) {
     JXRollViewIndicatorStyleColor = 1,
@@ -32,7 +30,8 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
     JXRollDirectionTORight,
 };
 
-#define JX_DEALLOC_TEST   - (void)dealloc { NSLog(@"dealloc -> %@",NSStringFromClass([self class])); }
+//#define JX_DEALLOC_TEST   - (void)dealloc { NSLog(@"dealloc -> %@",NSStringFromClass([self class])); }
+#define JX_DEALLOC_TEST
 
 // ====================================================================================================
 #pragma mark -
@@ -79,10 +78,10 @@ typedef NS_ENUM(NSInteger, JXRollDirection) {
     }
     _numberOfPages = numberOfPages;
     
-    CGFloat wIndicator = self.numberOfPages * (INDICATOR_INTERITEM_SPACE + self.frame.size.height) - INDICATOR_INTERITEM_SPACE;
+    CGFloat wIndicator = self.numberOfPages * (JXIndicatorInteritemSpacing + self.frame.size.height) - JXIndicatorInteritemSpacing;
     CGFloat xLocFirstImgView = (self.frame.size.width - wIndicator) / 2;
     for (NSInteger i = 0; i < self.numberOfPages; i ++) {
-        self.arrImgViews[i].frame = CGRectMake(xLocFirstImgView + i * (INDICATOR_INTERITEM_SPACE + self.frame.size.height),
+        self.arrImgViews[i].frame = CGRectMake(xLocFirstImgView + i * (JXIndicatorInteritemSpacing + self.frame.size.height),
                                                0,
                                                self.frame.size.height,
                                                self.frame.size.height);
@@ -176,36 +175,36 @@ JX_DEALLOC_TEST
 }
 
 // 页面指示器距底部的距离 默认 8pt
-- (void)setIndicatorToBottomSpace:(CGFloat)indicatorToBottomSpace {
-    _indicatorToBottomSpace = indicatorToBottomSpace;
+- (void)setIndicatorToBottomSpacing:(CGFloat)indicatorToBottomSpacing {
+    _indicatorToBottomSpacing = indicatorToBottomSpacing;
     
     if (self.rollViewIndicatorStyle == JXRollViewIndicatorStyleColor) {
         CGRect rectPageControlColor = CGRectMake(0,
-                                                 self.rHeight - self.indicatorToBottomSpace - SYS_INDICATOR_SIDE,
+                                                 self.rHeight - self.indicatorToBottomSpacing - JXSystemIndicatorSide,
                                                  self.rWidth,
-                                                 SYS_INDICATOR_SIDE);
+                                                 JXSystemIndicatorSide);
         self.pageControlColor.frame = rectPageControlColor;
     }
     else {
         CGSize indicatorSize = self.pageControlImage.pageIndicatorImage.size;
         CGFloat indicatorSide = indicatorSize.width > indicatorSize.height ? indicatorSize.width : indicatorSize.height;
-        indicatorSide = indicatorSide < INDICATOR_SIDE_MIN ? INDICATOR_SIDE_MIN : (indicatorSide > INDICATOR_SIDE_MAX ? INDICATOR_SIDE_MAX : indicatorSide);
+        indicatorSide = indicatorSide < JXIndicatorSideMin ? JXIndicatorSideMin : (indicatorSide > JXIndicatorSideMax ? JXIndicatorSideMax : indicatorSide);
         
         CGRect rectPageControlImage = CGRectMake(0,
-                                                 self.rHeight - self.indicatorToBottomSpace - indicatorSide,
+                                                 self.rHeight - self.indicatorToBottomSpacing - indicatorSide,
                                                  self.rWidth,
                                                  indicatorSide);
         self.pageControlImage.frame = rectPageControlImage;
     }
 }
 
-- (void)setHidesForSinglePage:(BOOL)hidesForSinglePage {
-    _hidesForSinglePage = hidesForSinglePage;
+- (void)setHideIndicatorForSinglePage:(BOOL)hideIndicatorForSinglePage {
+    _hideIndicatorForSinglePage = hideIndicatorForSinglePage;
     if (self.rollViewIndicatorStyle == JXRollViewIndicatorStyleColor) {
-        self.pageControlColor.hidesForSinglePage = self.hidesForSinglePage;
+        self.pageControlColor.hidesForSinglePage = self.hideIndicatorForSinglePage;
     }
     else {
-        self.pageControlImage.hidesForSinglePage = self.hidesForSinglePage;
+        self.pageControlImage.hidesForSinglePage = self.hideIndicatorForSinglePage;
     }
 }
 
@@ -234,7 +233,7 @@ JX_DEALLOC_TEST
     self.arr3IsDownloading = [[NSMutableArray alloc] init];
     self.arrImages = [[NSMutableArray alloc] init];
     self.placeholderImage = [[UIImage alloc] init];
-    self.autoRollTimeInterval = JXROLLVIEW_ROLL_INTERVAL_DEFAULT;
+    self.autoRollTimeInterval = JXAutoRollTimeIntervalDefault;
     self.autoRoll = YES;
     if (pageIndicatorImage &&
         currentPageIndicatorImage &&
@@ -280,7 +279,7 @@ JX_DEALLOC_TEST
                                                         currentPageIndicatorImage:currentPageIndicatorImage];
         [self addSubview:self.pageControlImage];
     }
-    self.indicatorToBottomSpace = 8.f;
+    self.indicatorToBottomSpacing = JXIndicatorToBottomSpacingDefault;
     self.imageContentMode = UIViewContentModeScaleAspectFill;
     
     //
@@ -289,7 +288,7 @@ JX_DEALLOC_TEST
     
     //
     self.timer = [[NSTimer alloc] initWithFireDate:[NSDate distantFuture]
-                                          interval:JXROLLVIEW_TIMER_CYCLE
+                                          interval:JXTimerCycle
                                             target:self
                                           selector:@selector(timerTicking)
                                           userInfo:nil
@@ -306,7 +305,7 @@ JX_DEALLOC_TEST
                                                object:nil];
     
     //
-    self.interitemSpacing = JXROLLVIEW_INTERITEM_SPACE;
+    self.interitemSpacing = JXInteritemSpacingDefault;
     
 }
 
@@ -329,7 +328,7 @@ JX_DEALLOC_TEST
         self.pageControlImage.numberOfPages = self.numberOfPages;
     }
     
-    if (self.numberOfPages == 1 && self.hidesForSinglePage) {
+    if (self.numberOfPages == 1 && self.hideIndicatorForSinglePage) {
         self.scrollView.scrollEnabled = NO;
     }
 }
@@ -352,7 +351,7 @@ JX_DEALLOC_TEST
         }
         
         [self refreshImages];
-        if (self.autoRoll && !(self.numberOfPages == 1 && self.hidesForSinglePage)) {
+        if (self.autoRoll && !(self.numberOfPages == 1 && self.hideIndicatorForSinglePage)) {
             [self rollViewPlay];
         }
     }
@@ -413,7 +412,7 @@ JX_DEALLOC_TEST
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (self.numberOfPages > 0 && self.autoRoll && !(self.numberOfPages == 1 && self.hidesForSinglePage)) {
+    if (self.numberOfPages > 0 && self.autoRoll && !(self.numberOfPages == 1 && self.hideIndicatorForSinglePage)) {
         [self rollViewPlay];
     }
 }
@@ -446,7 +445,7 @@ JX_DEALLOC_TEST
             [self.scrollView setContentOffset:tempOffSet animated:YES];
         }
         else {
-            self.timerCounter += JXROLLVIEW_TIMER_CYCLE;
+            self.timerCounter += JXTimerCycle;
         }
     }
 }
@@ -475,7 +474,7 @@ JX_DEALLOC_TEST
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSLog(@"dealloc -> %@",NSStringFromClass([self class]));
+//    NSLog(@"dealloc -> %@",NSStringFromClass([self class]));
 }
 
 @end

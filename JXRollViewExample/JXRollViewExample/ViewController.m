@@ -27,7 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.view.backgroundColor = [UIColor colorWithRed:239/255.f green:239/255.f blue:244/255.f alpha:1.f];
     self.view.backgroundColor = [UIColor grayColor];
     
     
@@ -52,63 +51,42 @@
     CGFloat yLocation = 20.f;
     CGFloat imgRate = 16 / 9.f;
     CGFloat wScreen = [UIScreen mainScreen].bounds.size.width;
+    CGFloat spa_Edge = 8.f;
     
 // ==========================================================================================
-#pragma mark 以创建 pageControl 为自定义图片 的 JXRollView 为例
-    // STEP 1 创建 JXRollView
-    //    self.rollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate) pageIndicatorColor:[UIColor grayColor] currentPageIndicatorColor:[UIColor orangeColor]];
-    
-    self.rollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate) pageIndicatorImage:[UIImage imageNamed:@"indicatorImageNormal"] currentPageIndicatorImage:[UIImage imageNamed:@"indicatorImageHighlight"]];
-    
+    // Create a JXRollView with image indicator.
+    self.rollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate)
+                                   pageIndicatorImage:[UIImage imageNamed:@"indicatorImageNormal"]
+                            currentPageIndicatorImage:[UIImage imageNamed:@"indicatorImageHighlight"]];
     [self.view addSubview:self.rollView];
     self.rollView.delegate = self;
-    
-    
-    //    self.rollView.placeholderImage = [[UIImage alloc] init];
-    //    self.rollView.imageContentMode = UIViewContentModeScaleToFill;
-    //    self.rollView.interitemSpacing = 20.f;
-    //    self.rollView.autoRoll = NO;
-    //    self.rollView.autoRollTimeInterval = 2.f;
-    //    self.rollView.indicatorToBottomSpace = 20.f;
-    //    self.rollView.hidesForSinglePage = YES;
-    
-    
-    // STEP 2 开始滚动
     [self.rollView reloadData];
     
-    //#pragma mark 创建 pageControl 为自定义颜色 的 JXRollView
-    //    CGFloat spa_Edge = 8;
-    //    CGRect rectRollViewAnotherKind = CGRectMake(2 * spa_Edge,
-    //                                                yLocation + _jxRollView.frame.size.height + spa_Edge,
-    //                                                wScreen - 4 * spa_Edge,
-    //                                                (wScreen - 2 * spa_Edge) / imgRate );
-    //    _jxRollViewAnotherKind = [[JXRollView alloc] initWithFrame:rectRollViewAnotherKind
-    //                                          indicatorColorNormal:nil
-    //                                       indicatorColorHighlight:nil
-    //                                               animateInterval:M_E
-    //                                                     tapAction:^(NSInteger tapIndex) {
-    //
-    //                                                     }];
-    //    [self.view addSubview:_jxRollViewAnotherKind];
-    //    [_jxRollViewAnotherKind jx_refreshRollViewByUrls:[arrUrls subarrayWithRange:NSMakeRange(1, 5)]];
-    //
-    //    //
-    //    CGRect rectRollViewLast = CGRectMake(2 * spa_Edge,
-    //                                         _jxRollViewAnotherKind.frame.origin.y + _jxRollViewAnotherKind.frame.size.height + spa_Edge,
-    //                                         wScreen - 4 * spa_Edge,
-    //                                         (wScreen - 2 * spa_Edge) / imgRate);
-    //
-    //    _jxRollViewLast = [[JXRollView alloc] initWithFrame:rectRollViewLast
-    //                                   indicatorColorNormal:[UIColor lightGrayColor]
-    //                                indicatorColorHighlight:[UIColor greenColor]
-    //                                        animateInterval:M_SQRT2
-    //                                              tapAction:^(NSInteger tapIndex) {
-    //
-    //                                              }];
-    //    [self.view addSubview:_jxRollViewLast];
-    //    [_jxRollViewLast jx_refreshRollViewByUrls:[arrUrls subarrayWithRange:NSMakeRange(2, 2)]];
+    // Create a JXRollView with custom color indicator.
+    CGRect rectAnotherKind = CGRectMake(2 * spa_Edge,
+                                        yLocation + self.rollView.frame.size.height + spa_Edge,
+                                        wScreen - 4 * spa_Edge,
+                                        (wScreen - 2 * spa_Edge) / imgRate );
+    self.rollViewAnotherKind = [[JXRollView alloc] initWithFrame:rectAnotherKind
+                                              pageIndicatorColor:[UIColor lightGrayColor]
+                                       currentPageIndicatorColor:[UIColor redColor]];
+    [self.view addSubview:self.rollViewAnotherKind];
+    self.rollViewAnotherKind.delegate = self;
+    self.rollViewAnotherKind.autoRoll = NO;
+    [self.rollViewAnotherKind reloadData];
     
-    
+    // Create a JXRollView with color(system default) indicator.
+    CGRect rectRollViewLast = CGRectMake(2 * spa_Edge,
+                                         self.rollViewAnotherKind.frame.origin.y + self.rollViewAnotherKind.frame.size.height + spa_Edge,
+                                         wScreen - 4 * spa_Edge,
+                                         (wScreen - 2 * spa_Edge) / imgRate);
+    self.rollViewLast = [[JXRollView alloc] initWithFrame:rectRollViewLast
+                                              pageIndicatorColor:nil
+                                       currentPageIndicatorColor:nil];
+    [self.view addSubview:self.rollViewLast];
+    self.rollViewLast.delegate = self;
+    self.rollViewLast.indicatorToBottomSpacing = 20;
+    [self.rollViewLast reloadData];
     
 }
 
@@ -132,8 +110,8 @@
 
 - (void)dealloc {
     [self.rollView free];
-    //    [_jxRollViewAnotherKind jx_free];
-    //    [_jxRollViewLast jx_free];
+    [self.rollViewAnotherKind free];
+    [self.rollViewLast free];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,3 +119,12 @@
 }
 
 @end
+
+
+
+
+
+
+
+
+
