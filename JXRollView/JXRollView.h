@@ -9,7 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@protocol JXRollViewDelegate;
+@class JXRollView;
+
+@protocol JXRollViewDelegate <NSObject>
+
+@required
+- (NSInteger)numberOfItemsInRollView:(nonnull JXRollView *)rollView;
+- (nonnull NSURL *)rollView:(nonnull JXRollView *)rollView urlForItemAtIndex:(NSInteger)index;
+
+@optional
+- (void)rollView:(nonnull JXRollView *)rollView didSelectItemAtIndex:(NSInteger)index;
+
+@end
 
 NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
 
@@ -18,6 +29,20 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
  *  JXRollView 的代理, (使用代理与 UITableView 类似.)
  */
 @property (nonatomic, weak, nullable) id <JXRollViewDelegate> delegate;
+
+/**
+ *  Custom color for page and current page indicator.
+ *  自定义指示器颜色.
+ */
+@property (nonatomic, strong, nullable) UIColor *pageIndicatorColor;
+@property (nonatomic, strong, nullable) UIColor *currentPageIndicatorColor;
+
+/**
+ *  Custom image for page and current page indicator, both settings are valid and ignore setting of custom color.(image size[4, 18]pt.)
+ *  自定义指示器的图片, 两者同时设置才有效果并且忽略指示器的颜色设置.(图片大小[4, 18]pt.)
+ */
+@property (nonatomic, strong, nullable) UIImage *pageIndicatorImage;
+@property (nonatomic, strong, nullable) UIImage *currentPageIndicatorImage;
 
 /**
  *  Placeholder image.
@@ -62,53 +87,16 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
 @property (nonatomic, assign) BOOL hideIndicatorForSinglePage;
 
 /**
- *  Create a JXRollView of system style with custom color🔴 indicator.
- *  创建系统样式页面指示器为自定义颜色的 JXRollView.
- *
- *  @param frame                     Frame
- *  @param pageIndicatorColor        Custom color for page indicator.
- *  @param currentPageIndicatorColor Custom color for current page indicator.
- *
- *  @return An instance of JXRollView with the indicator is color.
- */
-- (nonnull JXRollView *)initWithFrame:(CGRect)frame
-                   pageIndicatorColor:(nullable UIColor *)pageIndicatorColor
-            currentPageIndicatorColor:(nullable UIColor *)currentPageIndicatorColor;
-
-/**
- *  Create a JXRollView with custom image🌋 indicator.
- *  创建页面指示器为自定义图片的 JXRollView.
- *
- *  @param frame                      Frame
- *  @param pageIndicatorImage         Custom iamge for page indicator, image size ( >= 4 && <= 18)pt.
- *  @param currentPageIndicatorImage  Custom iamge for current page indicator,image size ( >= 4 && <= 18)pt
- *
- *  @return An instance of JXRollView with the indicator is image.
- */
-- (nonnull JXRollView *)initWithFrame:(CGRect)frame
-                   pageIndicatorImage:(nullable UIImage *)pageIndicatorImage
-            currentPageIndicatorImage:(nullable UIImage *)currentPageIndicatorImage;
-
-/**
  *  Similar to UITableView.
+ *  与 UITableView 类似
  */
 - (void)reloadData;
 
 /**
- *  <#Description#>
+ *  Invalidate timer of JXRollView.
+ *  释放 JXRollView 的定时器.
  */
 - (void)free;
-
-@end
-
-@protocol JXRollViewDelegate <NSObject>
-
-@required
-- (NSInteger)numberOfItemsInRollView:(nonnull JXRollView *)rollView;
-- (nonnull NSURL *)rollView:(nonnull JXRollView *)rollView urlForItemAtIndex:(NSInteger)index;
-
-@optional
-- (void)rollView:(nonnull JXRollView *)rollView didSelectItemAtIndex:(NSInteger)index;
 
 @end
 

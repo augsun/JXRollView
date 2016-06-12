@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JXRollView"
-  s.version      = "2.0.0"
+  s.version      = "2.0.1"
   s.summary      = "The easiest way to create an infinite loop scroll view."
 
   # This description is used to generate tags and improve search results.

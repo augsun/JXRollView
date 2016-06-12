@@ -34,17 +34,12 @@ NO BEST ONLY CLOSER.
 ## How To Get Started
 ####1. Create JXRollView.
 ```objc
-- (nonnull JXRollView *)initWithFrame:(CGRect)frame
-                   pageIndicatorColor:(nullable UIColor *)pageIndicatorColor
-            currentPageIndicatorColor:(nullable UIColor *)currentPageIndicatorColor;
+- (instancetype)initWithFrame:(CGRect)frame;
 ```
-#####or
+#####or outlet from (IB)Xib.
 ```objc
-- (nonnull JXRollView *)initWithFrame:(CGRect)frame
-                   pageIndicatorImage:(nullable UIImage *)pageIndicatorImage
-            currentPageIndicatorImage:(nullable UIImage *)currentPageIndicatorImage;
+@property (weak, nonatomic) IBOutlet JXRollView *rollViewInstance;
 ```
-
 
 ####2. Implement the method of JXRollViewDelegate.
 ```objc

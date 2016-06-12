@@ -14,9 +14,9 @@
 
 @interface ViewController () <JXRollViewDelegate>
 
-@property (nonatomic, strong) JXRollView *rollView;
-@property (nonatomic, strong) JXRollView *rollViewAnotherKind;
-@property (nonatomic, strong) JXRollView *rollViewLast;
+@property (nonatomic, strong) JXRollView *rollViewImage;
+@property (nonatomic, strong) JXRollView *rollViewColor;
+@property (weak, nonatomic) IBOutlet JXRollView *rollViewFromXib;
 
 @property (nonatomic, strong)   NSArray <NSURL *> *arrUrls;
 
@@ -27,8 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor grayColor];
-    
+    self.view.backgroundColor = [UIColor lightGrayColor];
     
     NSString *strWScreen = [NSString stringWithFormat:@".%ld", (long)[UIScreen mainScreen].bounds.size.width];
     NSString *strUrlBase = @"https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/";
@@ -48,45 +47,43 @@
                      ];
 #undef STR_CAT
 #undef URL_FROM_NAME
-    CGFloat yLocation = 20.f;
-    CGFloat imgRate = 16 / 9.f;
-    CGFloat wScreen = [UIScreen mainScreen].bounds.size.width;
-    CGFloat spa_Edge = 8.f;
     
-// ==========================================================================================
+    const CGFloat yLocation = 20.f;
+    const CGFloat imgRate = 16 / 9.f;
+    const CGFloat wScreen = [UIScreen mainScreen].bounds.size.width;
+    const CGFloat spa_Edge = 8.f;
+    
     // Create a JXRollView with image indicator.
-    self.rollView = [[JXRollView alloc] initWithFrame:CGRectMake(0, yLocation, wScreen, wScreen / imgRate)
-                                   pageIndicatorImage:[UIImage imageNamed:@"indicatorImageNormal"]
-                            currentPageIndicatorImage:[UIImage imageNamed:@"indicatorImageHighlight"]];
-    [self.view addSubview:self.rollView];
-    self.rollView.delegate = self;
-    [self.rollView reloadData];
+    // 创建指示器为自定义图片的 JXRollView.
+    self.rollViewImage = [[JXRollView alloc] initWithFrame:CGRectMake(0, 20, wScreen, wScreen / imgRate)];
+    [self.view addSubview:self.rollViewImage];
+    self.rollViewImage.pageIndicatorImage = [UIImage imageNamed:@"indicatorImageNormal"];
+    self.rollViewImage.currentPageIndicatorImage = [UIImage imageNamed:@"indicatorImageHighlight"];
+    self.rollViewImage.autoRollTimeInterval = M_LN10;
+    self.rollViewImage.delegate = self;
+    [self.rollViewImage reloadData];
     
     // Create a JXRollView with custom color indicator.
-    CGRect rectAnotherKind = CGRectMake(2 * spa_Edge,
-                                        yLocation + self.rollView.frame.size.height + spa_Edge,
-                                        wScreen - 4 * spa_Edge,
-                                        (wScreen - 2 * spa_Edge) / imgRate );
-    self.rollViewAnotherKind = [[JXRollView alloc] initWithFrame:rectAnotherKind
-                                              pageIndicatorColor:[UIColor lightGrayColor]
-                                       currentPageIndicatorColor:[UIColor redColor]];
-    [self.view addSubview:self.rollViewAnotherKind];
-    self.rollViewAnotherKind.delegate = self;
-    self.rollViewAnotherKind.autoRoll = NO;
-    [self.rollViewAnotherKind reloadData];
+    // 创建指示器为自定义颜色的 JXRollView.
+    CGFloat x = 2 * spa_Edge;
+    CGFloat y = yLocation + self.rollViewImage.frame.size.height + spa_Edge;
+    CGFloat w = wScreen - 4 * spa_Edge;
+    CGFloat h = (wScreen - 2 * spa_Edge) / imgRate;
+    self.rollViewColor = [[JXRollView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    [self.view addSubview:self.rollViewColor];
+    self.rollViewColor.pageIndicatorColor = [UIColor lightGrayColor];
+    self.rollViewColor.currentPageIndicatorColor = [UIColor redColor];
+    self.rollViewColor.delegate = self;
+    self.rollViewColor.autoRoll = NO;
+    [self.rollViewColor reloadData];
     
-    // Create a JXRollView with color(system default) indicator.
-    CGRect rectRollViewLast = CGRectMake(2 * spa_Edge,
-                                         self.rollViewAnotherKind.frame.origin.y + self.rollViewAnotherKind.frame.size.height + spa_Edge,
-                                         wScreen - 4 * spa_Edge,
-                                         (wScreen - 2 * spa_Edge) / imgRate);
-    self.rollViewLast = [[JXRollView alloc] initWithFrame:rectRollViewLast
-                                              pageIndicatorColor:nil
-                                       currentPageIndicatorColor:nil];
-    [self.view addSubview:self.rollViewLast];
-    self.rollViewLast.delegate = self;
-    self.rollViewLast.indicatorToBottomSpacing = 20;
-    [self.rollViewLast reloadData];
+    // Create a JXRollView from Xib.
+    // 从 Xib 创建 JXRollView.
+    self.rollViewFromXib.delegate = self;
+    self.rollViewFromXib.indicatorToBottomSpacing = 20;
+    self.rollViewFromXib.interitemSpacing = 4.f;
+    self.rollViewFromXib.autoRollTimeInterval = M_SQRT2;
+    [self.rollViewFromXib reloadData];
     
 }
 
@@ -109,13 +106,9 @@
 
 
 - (void)dealloc {
-    [self.rollView free];
-    [self.rollViewAnotherKind free];
-    [self.rollViewLast free];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    [self.rollViewImage free];
+    [self.rollViewColor free];
+    [self.rollViewFromXib free];
 }
 
 @end
