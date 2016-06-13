@@ -7,18 +7,14 @@
 //
 
 #import "ViewController.h"
-
 #import "JXRollView.h"
-
-#define WIDTH_SCREEN [UIScreen mainScreen].bounds.size.width
 
 @interface ViewController () <JXRollViewDelegate>
 
-@property (nonatomic, strong) JXRollView *rollViewImage;
-@property (nonatomic, strong) JXRollView *rollViewColor;
-@property (weak, nonatomic) IBOutlet JXRollView *rollViewFromXib;
-
-@property (nonatomic, strong)   NSArray <NSURL *> *arrUrls;
+@property (nonatomic, strong)           JXRollView          *rollViewImage;
+@property (nonatomic, strong)           JXRollView          *rollViewColor;
+@property (weak, nonatomic) IBOutlet    JXRollView          *rollViewFromXib;
+@property (nonatomic, strong)           NSArray <NSURL *>   *arrUrls;
 
 @end
 
@@ -87,6 +83,7 @@
     
 }
 
+#pragma mark <JXRollViewDelegate>
 - (NSInteger)numberOfItemsInRollView:(JXRollView *)rollView {
     return self.arrUrls.count;
 }
@@ -98,9 +95,6 @@
 - (void)rollView:(JXRollView *)rollView didSelectItemAtIndex:(NSInteger)index {
     NSLog(@"%s", __func__);
 }
-
-
-
 
 
 
