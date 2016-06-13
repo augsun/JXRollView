@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "UIImageView+WebCache.h"
-#import "JXRollView.h"
 
 @interface AppDelegate ()
 
@@ -16,12 +14,7 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    
-    [[SDImageCache sharedImageCache] cleanDisk];
-    [[SDImageCache sharedImageCache] clearDisk];
     
     return YES;
 }

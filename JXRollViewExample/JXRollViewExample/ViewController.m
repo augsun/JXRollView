@@ -22,27 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor lightGrayColor];
     
-    NSString *strWScreen = [NSString stringWithFormat:@".%ld", (long)[UIScreen mainScreen].bounds.size.width];
-    NSString *strUrlBase = @"https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/";
-#define STR_CAT2(str1, str2)    [NSString stringWithFormat:@"%@%@", str1, str2]
-#define URL_FROM_NAME(name)     [NSURL URLWithString:STR_CAT2(strUrlBase, STR_CAT2(name, STR_CAT2(strWScreen, @".jpg")))]
-    self.arrUrls = @[
-                     URL_FROM_NAME(@"101749"),
-                     URL_FROM_NAME(@"107500"),
-                     URL_FROM_NAME(@"108389"),
-                     URL_FROM_NAME(@"111258"),
-                     URL_FROM_NAME(@"112793"),
-                     URL_FROM_NAME(@"355362"),
-                     URL_FROM_NAME(@"931282"),
-                     URL_FROM_NAME(@"969118"),
-                     URL_FROM_NAME(@"970400"),
-                     URL_FROM_NAME(@"986765"),
-                     ];
-#undef STR_CAT
-#undef URL_FROM_NAME
+    [self generateImageUrlsForRollView];
     
     const CGFloat yLocation = 20.f;
     const CGFloat imgRate = 16 / 9.f;
@@ -81,6 +62,27 @@
     self.rollViewFromXib.autoRollTimeInterval = M_SQRT2;
     [self.rollViewFromXib reloadData];
     
+}
+
+- (void)generateImageUrlsForRollView {
+    NSString *strWScreen = [NSString stringWithFormat:@".%ld", (long)[UIScreen mainScreen].bounds.size.width];
+    NSString *strUrlBase = @"https://raw.githubusercontent.com/augsun/Resources/master/JXRollView/";
+#define STR_CAT2(str1, str2)    [NSString stringWithFormat:@"%@%@", str1, str2]
+#define URL_FROM_NAME(name)     [NSURL URLWithString:STR_CAT2(strUrlBase, STR_CAT2(name, STR_CAT2(strWScreen, @".jpg")))]
+    self.arrUrls = @[
+                     URL_FROM_NAME(@"101749"),
+                     URL_FROM_NAME(@"107500"),
+                     URL_FROM_NAME(@"108389"),
+                     URL_FROM_NAME(@"111258"),
+                     URL_FROM_NAME(@"112793"),
+                     URL_FROM_NAME(@"355362"),
+                     URL_FROM_NAME(@"931282"),
+                     URL_FROM_NAME(@"969118"),
+                     URL_FROM_NAME(@"970400"),
+                     URL_FROM_NAME(@"986765"),
+                     ];
+#undef STR_CAT
+#undef URL_FROM_NAME
 }
 
 #pragma mark <JXRollViewDelegate>
