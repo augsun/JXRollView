@@ -9,16 +9,16 @@
 #import "JXRollView.h"
 #import "UIImageView+WebCache.h"
 
-const CGFloat JXAutoRollTimeIntervalDefault         = 3.f;  // 默认滚动间隔
-const CGFloat JXTimerCycle                          = .2f;  // 定时器周期
-const CGFloat JXInteritemSpacingDefault             = 8.f;  // 滚动图片的间距
-const CGFloat JXIndicatorToBottomSpacingDefault     = 8.f;  // pageControl 到底部的距离
-const CGFloat JXSystemIndicatorSide                 = 7.f;  // 系统 indicator 边长
+static const CGFloat JXAutoRollTimeIntervalDefault         = 3.f;  // 默认滚动间隔
+static const CGFloat JXTimerCycle                          = .2f;  // 定时器周期
+static const CGFloat JXInteritemSpacingDefault             = 8.f;  // 滚动图片的间距
+static const CGFloat JXIndicatorToBottomSpacingDefault     = 8.f;  // pageControl 到底部的距离
+static const CGFloat JXSystemIndicatorSide                 = 7.f;  // 系统 indicator 边长
 
 //以下常量只针对 indicatorImage
-const CGFloat JXIndicatorSideMin                    = 4.f;  // indicatorImage 的最小尺寸
-const CGFloat JXIndicatorSideMax                    = 18.f; // indicatorImage 的最大尺寸
-const CGFloat JXIndicatorInteritemSpacing           = 8.f;  // 两个 indicator 之间的距离
+static const CGFloat JXIndicatorSideMin                    = 4.f;  // indicatorImage 的最小尺寸
+static const CGFloat JXIndicatorSideMax                    = 18.f; // indicatorImage 的最大尺寸
+static const CGFloat JXIndicatorInteritemSpacing           = 8.f;  // 两个 indicator 之间的距离
 
 typedef NS_ENUM(NSUInteger, JXRollViewIndicatorStyle) {
     JXRollViewIndicatorStyleColor = 1,
