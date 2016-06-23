@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JXRollView"
-  s.version      = "2.0.1"
+  s.version      = "2.1.0"
   s.summary      = "The easiest way to create an infinite loop scroll view."
 
   # This description is used to generate tags and improve search results.
@@ -124,6 +124,6 @@ Pod::Spec.new do |s|
     s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-    s.dependency "SDWebImage", "~> 3.7.5"
+  # s.dependency "SDWebImage", "~> 3.7.5"
 
 end

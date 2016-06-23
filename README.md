@@ -38,7 +38,7 @@ NO BEST ONLY CLOSER.
 ```
 #####or outlet from (IB)Xib.
 ```objc
-@property (weak, nonatomic) IBOutlet JXRollView *rollViewInstance;
+@property (weak, nonatomic) IBOutlet JXRollView *rollView;
 ```
 
 ####2. Implement the method of JXRollViewDelegate.
@@ -47,10 +47,10 @@ NO BEST ONLY CLOSER.
 
 @required
 - (NSInteger)numberOfItemsInRollView:(nonnull JXRollView *)rollView;
-- (nonnull NSURL *)rollView:(nonnull JXRollView *)rollView urlForItemAtIndex:(NSInteger)index;
+- (void)rollView:(nonnull JXRollView *)rollView setImageForImageView:(nonnull UIImageView *)imageView atIndex:(NSInteger)index;
 
 @optional
-- (void)rollView:(nonnull JXRollView *)rollView didSelectItemAtIndex:(NSInteger)index;
+- (void)rollView:(nonnull JXRollView *)rollView didTapItemAtIndex:(NSInteger)index;
 
 @end
 ```
@@ -68,7 +68,5 @@ NO BEST ONLY CLOSER.
 ## License
 JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).
 
-## Who Use It 
-[SHIBA](https://itunes.apple.com/cn/app/id1073524695)
 
 

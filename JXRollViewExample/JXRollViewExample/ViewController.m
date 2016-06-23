@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "JXRollView.h"
+#import "UIImageView+WebCache.h"
 
 @interface ViewController () <JXRollViewDelegate>
 
@@ -58,7 +59,7 @@
     [self.view addSubview:self.rollViewImage];
     self.rollViewImage.pageIndicatorImage = [UIImage imageNamed:@"indicatorImageNormal"];
     self.rollViewImage.currentPageIndicatorImage = [UIImage imageNamed:@"indicatorImageHighlight"];
-    self.rollViewImage.autoRollTimeInterval = M_LN10;
+    self.rollViewImage.autoRollingTimeInterval = M_LN10;
     self.rollViewImage.delegate = self;
     [self.rollViewImage reloadData];
     
@@ -73,7 +74,7 @@
     self.rollViewColor.pageIndicatorColor = [UIColor lightGrayColor];
     self.rollViewColor.currentPageIndicatorColor = [UIColor redColor];
     self.rollViewColor.delegate = self;
-    self.rollViewColor.autoRoll = NO;
+    self.rollViewColor.autoRolling = NO;
     [self.rollViewColor reloadData];
     
     // Create a JXRollView from Xib.
@@ -81,7 +82,7 @@
     self.rollViewFromXib.delegate = self;
     self.rollViewFromXib.indicatorToBottomSpacing = 20;
     self.rollViewFromXib.interitemSpacing = 4.f;
-    self.rollViewFromXib.autoRollTimeInterval = M_SQRT2;
+    self.rollViewFromXib.autoRollingTimeInterval = M_SQRT2;
     [self.rollViewFromXib reloadData];
     
 }
@@ -91,13 +92,21 @@
     return self.arrUrls.count;
 }
 
-- (NSURL *)rollView:(JXRollView *)rollView urlForItemAtIndex:(NSInteger)index {
-    return self.arrUrls[index];
+- (void)rollView:(JXRollView *)rollView setImageForImageView:(UIImageView *const)imageView atIndex:(NSInteger)index {
+    // Recommend use [[SDWebImageManager sharedManager] downloadImageWithURL:options:progress:completed:] method to set image.
+    // 推荐使用 [[SDWebImageManager sharedManager] downloadImageWithURL:options:progress:completed:] 方法设置图片.
+    [[SDWebImageManager sharedManager] downloadImageWithURL:self.arrUrls[index] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        imageView.image = image;
+    }];
 }
 
-- (void)rollView:(JXRollView *)rollView didSelectItemAtIndex:(NSInteger)index {
-    NSLog(@"%s", __func__);
+- (void)rollView:(JXRollView *)rollView didTapItemAtIndex:(NSInteger)index {
+    NSLog(@"Tap the index %ld", index);
 }
+
+
+
+
 
 
 
