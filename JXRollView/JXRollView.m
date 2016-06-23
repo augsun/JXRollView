@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, JXRollViewIndicatorStyle) {
     JXRollViewIndicatorStyleImage,
 };
 
-#define JX_ROLLVIEW_DEBUG
+//#define JX_ROLLVIEW_DEBUG
 #define JX_DEALLOC_TEST   - (void)dealloc { NSLog(@"dealloc -> %@",NSStringFromClass([self class])); }
 
 // ====================================================================================================

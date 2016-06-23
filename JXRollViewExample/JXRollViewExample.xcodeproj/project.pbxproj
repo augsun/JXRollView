@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C3FD9AD443B0C13BBF1A34C /* libPods-JXRollViewExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 167771FB76B03F53ADC95CBF /* libPods-JXRollViewExample.a */; };
+		712F13C91D1BA189001A60E3 /* JXRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F13C81D1BA189001A60E3 /* JXRollView.m */; };
 		714C16361D0CFACA0098FB91 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 714C16351D0CFACA0098FB91 /* main.m */; };
 		714C16391D0CFACA0098FB91 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 714C16381D0CFACA0098FB91 /* AppDelegate.m */; };
 		714C163C1D0CFACA0098FB91 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 714C163B1D0CFACA0098FB91 /* ViewController.m */; };
@@ -18,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		167771FB76B03F53ADC95CBF /* libPods-JXRollViewExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JXRollViewExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		712F13C71D1BA189001A60E3 /* JXRollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRollView.h; sourceTree = "<group>"; };
+		712F13C81D1BA189001A60E3 /* JXRollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRollView.m; sourceTree = "<group>"; };
 		714C16311D0CFACA0098FB91 /* JXRollViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JXRollViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		714C16351D0CFACA0098FB91 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		714C16371D0CFACA0098FB91 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,6 +56,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		712F13C61D1BA189001A60E3 /* JXRollView */ = {
+			isa = PBXGroup;
+			children = (
+				712F13C71D1BA189001A60E3 /* JXRollView.h */,
+				712F13C81D1BA189001A60E3 /* JXRollView.m */,
+			);
+			name = JXRollView;
+			path = ../../JXRollView;
+			sourceTree = "<group>";
+		};
 		714C16281D0CFACA0098FB91 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +89,7 @@
 			children = (
 				714C16371D0CFACA0098FB91 /* AppDelegate.h */,
 				714C16381D0CFACA0098FB91 /* AppDelegate.m */,
+				712F13C61D1BA189001A60E3 /* JXRollView */,
 				714C163A1D0CFACA0098FB91 /* ViewController.h */,
 				714C163B1D0CFACA0098FB91 /* ViewController.m */,
 				714C163D1D0CFACA0098FB91 /* Main.storyboard */,
@@ -225,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				714C163C1D0CFACA0098FB91 /* ViewController.m in Sources */,
+				712F13C91D1BA189001A60E3 /* JXRollView.m in Sources */,
 				714C16391D0CFACA0098FB91 /* AppDelegate.m in Sources */,
 				714C16361D0CFACA0098FB91 /* main.m in Sources */,
 			);
