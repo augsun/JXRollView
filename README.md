@@ -59,11 +59,6 @@ NO BEST ONLY CLOSER.
 - (void)reloadData;
 ```
   
-####4. Call free in it's owner's dealloc method. 
-```objc
-- (void)free;
-```
-
 ## License
 JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).
 
