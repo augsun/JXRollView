@@ -15,6 +15,7 @@
 		714C163F1D0CFACA0098FB91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714C163D1D0CFACA0098FB91 /* Main.storyboard */; };
 		714C16411D0CFACA0098FB91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 714C16401D0CFACA0098FB91 /* Assets.xcassets */; };
 		714C16441D0CFACA0098FB91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714C16421D0CFACA0098FB91 /* LaunchScreen.storyboard */; };
+		C828D48C1DB85D2900F54D78 /* JXRollView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C828D48B1DB85D2900F54D78 /* JXRollView.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		714C16451D0CFACA0098FB91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A752E09E1D4308B26834A03B /* Pods-JXRollViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JXRollViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JXRollViewExample/Pods-JXRollViewExample.debug.xcconfig"; sourceTree = "<group>"; };
 		BC50E2EEA36D0D4D47B5815F /* Pods-JXRollViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JXRollViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-JXRollViewExample/Pods-JXRollViewExample.release.xcconfig"; sourceTree = "<group>"; };
+		C828D48B1DB85D2900F54D78 /* JXRollView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = JXRollView.podspec; path = ../../JXRollView.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		714C16341D0CFACA0098FB91 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C828D48B1DB85D2900F54D78 /* JXRollView.podspec */,
 				714C16351D0CFACA0098FB91 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -177,6 +180,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C828D48C1DB85D2900F54D78 /* JXRollView.podspec in Resources */,
 				714C16441D0CFACA0098FB91 /* LaunchScreen.storyboard in Resources */,
 				714C16411D0CFACA0098FB91 /* Assets.xcassets in Resources */,
 				714C163F1D0CFACA0098FB91 /* Main.storyboard in Resources */,

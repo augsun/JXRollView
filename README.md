@@ -1,4 +1,3 @@
-
 <p align="center" >
   <img src="https://raw.githubusercontent.com/augsun/JXRollView/master/JXRollViewExample/JXRollViewExample/Assets.xcassets/AppIcon.appiconset/JXRollView_180.png?raw=true" alt="JXRollView" title="JXRollView">
 </p>

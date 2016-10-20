@@ -90,7 +90,6 @@ typedef NS_ENUM(NSUInteger, JXRollViewIndicatorStyle) {
         self.imgViews[i].image = i == self.currentPage ? self.currentPageIndicatorImage : self.pageIndicatorImage;
     }
     self.hidden = (self.hidesForSinglePage && self.numberOfPages == 1) || self.numberOfPages == 0;
-    
 }
 
 - (void)setCurrentPage:(NSUInteger)currentPage {
@@ -101,6 +100,29 @@ typedef NS_ENUM(NSUInteger, JXRollViewIndicatorStyle) {
         self.imgViews[currentPage].image = self.currentPageIndicatorImage;
         _currentPage = currentPage;
     }
+}
+
+#ifdef JX_ROLLVIEW_DEBUG
+JX_DEALLOC_TEST
+#endif
+
+@end
+
+// ====================================================================================================
+#pragma mark - JXTimerTarget
+
+@interface JXTimerTarget : NSObject
+
+@property (nonatomic, copy) void (^targetTimerTickingCallback)(void);
+
+- (void)targetTimerTicking;
+
+@end
+
+@implementation JXTimerTarget
+
+- (void)targetTimerTicking {
+    !self.targetTimerTickingCallback ? : self.targetTimerTickingCallback();
 }
 
 #ifdef JX_ROLLVIEW_DEBUG
@@ -130,6 +152,8 @@ JX_DEALLOC_TEST
 @property (nonatomic, strong)   NSTimer                     *timer;                     //
 @property (nonatomic, assign)   NSUInteger                  cycleCounter;               //
 @property (nonatomic, assign)   BOOL                        counting;                   //
+
+@property (nonatomic, strong)   JXTimerTarget               *timerTarget;
 
 @end
 
@@ -212,14 +236,14 @@ JX_DEALLOC_TEST
 
 #pragma mark init
 - (instancetype)initWithFrame:(CGRect)frame {
-    if ([super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         [self createComponent];
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    if ([super initWithCoder:coder]) {
+    if (self = [super initWithCoder:coder]) {
         [self createComponent];
     }
     return self;
@@ -258,15 +282,27 @@ JX_DEALLOC_TEST
     [self addGestureRecognizer:tap];
     
     //
+    _timerTarget = [[JXTimerTarget alloc] init];
+    __weak __typeof(self) weakSelf = self;
+    [_timerTarget setTargetTimerTickingCallback:^{
+        [weakSelf timerTicking];
+    }];
     self.timer = [NSTimer timerWithTimeInterval:JXTimerCycle
-                                         target:self
-                                       selector:@selector(timerTicking)
+                                         target:_timerTarget
+                                       selector:@selector(targetTimerTicking)
                                        userInfo:nil
                                         repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    //
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appEnterForeground)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
 }
 
 - (void)layoutSubviews {
@@ -294,8 +330,16 @@ JX_DEALLOC_TEST
         self.pageControlImage.numberOfPages = self.numberOfPages;
     }
     
-    if (self.numberOfPages == 1 && self.hideIndicatorForSinglePage) {
-        self.scrollView.scrollEnabled = NO;
+    if (self.numberOfPages == 1) {
+        if (self.hideIndicatorForSinglePage) {
+            self.scrollView.scrollEnabled = NO;
+        }
+        else {
+            self.scrollView.scrollEnabled = YES;
+        }
+    }
+    else {
+        self.scrollView.scrollEnabled = YES;
     }
 }
 
@@ -437,20 +481,27 @@ JX_DEALLOC_TEST
     }
 }
 
-- (void)free {
+- (void)dealloc {
     [self.timer invalidate];
     self.scrollView.delegate = nil;
     self.delegate = nil;
-}
-
-- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 #ifdef JX_ROLLVIEW_DEBUG
     NSLog(@"dealloc -> %@",NSStringFromClass([self class]));
 #endif
 }
 
 @end
+
+@implementation JXRollView (deprecated)
+
+- (void)free {
+    
+}
+
+@end
+
 
 
 

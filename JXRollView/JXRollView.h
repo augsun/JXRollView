@@ -118,13 +118,27 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
  */
 - (void)reloadData;
 
+@end
+
+@interface JXRollView (deprecated)
+
 /**
  *  Invalidate timer of JXRollView.
  *  释放 JXRollView 的定时器.
  */
-- (void)free;
+- (void)free __deprecated_msg("不再需要调用该方法.");
 
 @end
+
+
+
+
+
+
+
+
+
+
 
 
 

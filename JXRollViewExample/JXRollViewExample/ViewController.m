@@ -104,19 +104,6 @@
     NSLog(@"Tap the index %ld", index);
 }
 
-
-
-
-
-
-
-
-- (void)dealloc {
-    [self.rollViewImage free];
-    [self.rollViewColor free];
-    [self.rollViewFromXib free];
-}
-
 @end
 
 
