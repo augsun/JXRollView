@@ -16,6 +16,7 @@
 		714C16411D0CFACA0098FB91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 714C16401D0CFACA0098FB91 /* Assets.xcassets */; };
 		714C16441D0CFACA0098FB91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714C16421D0CFACA0098FB91 /* LaunchScreen.storyboard */; };
 		C828D48C1DB85D2900F54D78 /* JXRollView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C828D48B1DB85D2900F54D78 /* JXRollView.podspec */; };
+		C8A446C82046B6FF00416409 /* JXRollView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C8A446C72046B6FF00416409 /* JXRollView.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		A752E09E1D4308B26834A03B /* Pods-JXRollViewExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JXRollViewExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JXRollViewExample/Pods-JXRollViewExample.debug.xcconfig"; sourceTree = "<group>"; };
 		BC50E2EEA36D0D4D47B5815F /* Pods-JXRollViewExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JXRollViewExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-JXRollViewExample/Pods-JXRollViewExample.release.xcconfig"; sourceTree = "<group>"; };
 		C828D48B1DB85D2900F54D78 /* JXRollView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = JXRollView.podspec; path = ../../JXRollView.podspec; sourceTree = "<group>"; };
+		C8A446C72046B6FF00416409 /* JXRollView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = JXRollView.podspec; path = ../../JXRollView.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				712F13C61D1BA189001A60E3 /* JXRollView */,
 				714C163A1D0CFACA0098FB91 /* ViewController.h */,
 				714C163B1D0CFACA0098FB91 /* ViewController.m */,
+				C8A446C72046B6FF00416409 /* JXRollView.podspec */,
 				714C163D1D0CFACA0098FB91 /* Main.storyboard */,
 				714C16401D0CFACA0098FB91 /* Assets.xcassets */,
 				714C16421D0CFACA0098FB91 /* LaunchScreen.storyboard */,
@@ -182,6 +185,7 @@
 			files = (
 				C828D48C1DB85D2900F54D78 /* JXRollView.podspec in Resources */,
 				714C16441D0CFACA0098FB91 /* LaunchScreen.storyboard in Resources */,
+				C8A446C82046B6FF00416409 /* JXRollView.podspec in Resources */,
 				714C16411D0CFACA0098FB91 /* Assets.xcassets in Resources */,
 				714C163F1D0CFACA0098FB91 /* Main.storyboard in Resources */,
 			);

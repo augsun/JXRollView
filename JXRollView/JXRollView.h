@@ -112,11 +112,17 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface JXRollView : UIView
  */
 @property (nonatomic, assign) BOOL hideIndicatorForSinglePage;
 
+// 隐藏后可自定义页面指示器
+@property (nonatomic, assign) BOOL hideIndicatorOrUseCustom;
+
 /**
  *  Similar to UITableView.
  *  与 UITableView 类似
  */
 - (void)reloadData;
+
+// 由子类实现
+- (void)pageDidChanged:(NSInteger)currentPage totalPages:(NSInteger)totalPages;
 
 @end
 

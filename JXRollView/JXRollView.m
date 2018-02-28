@@ -102,6 +102,12 @@ typedef NS_ENUM(NSUInteger, JXRollViewIndicatorStyle) {
     }
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.numberOfPages = _numberOfPages;
+}
+
 #ifdef JX_ROLLVIEW_DEBUG
 JX_DEALLOC_TEST
 #endif
@@ -212,6 +218,9 @@ JX_DEALLOC_TEST
         autoRollingTimeInterval <= JXAutoRollTimeIntervalMax) {
         _autoRollingTimeInterval = autoRollingTimeInterval;
     }
+    else {
+        _autoRollingTimeInterval = JXAutoRollTimeIntervalDefault;
+    }
 }
 
 - (void)setInteritemSpacing:(CGFloat)interitemSpacing {
@@ -231,6 +240,18 @@ JX_DEALLOC_TEST
     }
     else {
         self.pageControlImage.hidesForSinglePage = self.hideIndicatorForSinglePage;
+    }
+}
+
+- (void)setHideIndicatorOrUseCustom:(BOOL)hideIndicatorOrUseCustom {
+    _hideIndicatorOrUseCustom = hideIndicatorOrUseCustom;
+    self.pageControlImage.hidden = hideIndicatorOrUseCustom;
+    
+    if (self.rollViewIndicatorStyle == JXRollViewIndicatorStyleColor) {
+        self.pageControlColor.hidden = hideIndicatorOrUseCustom;
+    }
+    else {
+        self.pageControlImage.hidden = hideIndicatorOrUseCustom;
     }
 }
 
@@ -314,17 +335,30 @@ JX_DEALLOC_TEST
 - (void)setCurrentPage:(NSInteger)currentPage {
     _currentPage = currentPage;
     if (self.rollViewIndicatorStyle == JXRollViewIndicatorStyleColor) {
-        self.pageControlColor.currentPage = self.currentPage;
+        if (self.hideIndicatorOrUseCustom) {
+            
+        }
+        else {
+            self.pageControlColor.currentPage = self.currentPage;
+        }
     }
     else {
         self.pageControlImage.currentPage = self.currentPage;
+    }
+    if ([self respondsToSelector:@selector(pageDidChanged:totalPages:)]) {
+        [self pageDidChanged:currentPage totalPages:self.numberOfPages];
     }
 }
 
 - (void)setNumberOfPages:(NSInteger)numberOfPages {
     _numberOfPages = numberOfPages;
     if (self.rollViewIndicatorStyle == JXRollViewIndicatorStyleColor) {
-        self.pageControlColor.numberOfPages = self.numberOfPages;
+        if (self.hideIndicatorOrUseCustom) {
+            
+        }
+        else {
+            self.pageControlColor.numberOfPages = self.numberOfPages;
+        }
     }
     else {
         self.pageControlImage.numberOfPages = self.numberOfPages;
@@ -341,6 +375,13 @@ JX_DEALLOC_TEST
     else {
         self.scrollView.scrollEnabled = YES;
     }
+    if ([self respondsToSelector:@selector(pageDidChanged:totalPages:)]) {
+        [self pageDidChanged:self.currentPage totalPages:numberOfPages];
+    }
+}
+
+- (void)pageDidChanged:(NSInteger)currentPage totalPages:(NSInteger)totalPages {
+    
 }
 
 - (UIImageView *)createImageView {
