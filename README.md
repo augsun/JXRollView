@@ -1,3 +1,6 @@
+## !!! `JXRollView` 已经不单独更新了~ 且将要废弃, 请使用其更好用的升级版 `JXCarouselView`.
+## !!! `JXCarouselView` 不作为独立库, 作为 `JXEfficient` 的子功能, 使用时请接入 `JXEfficient` [点击传送](https://github.com/augsun/JXEfficient) !!!
+
 <p align="center" >
   <img src="https://raw.githubusercontent.com/augsun/JXRollView/master/JXRollViewExample/JXRollViewExample/Assets.xcassets/AppIcon.appiconset/JXRollView_180.png?raw=true" alt="JXRollView" title="JXRollView">
 </p>
@@ -53,12 +56,12 @@ NO BEST ONLY CLOSER.
 
 @end
 ```
-    
+
 ####3. It reload data.
 ```objc
 - (void)reloadData;
 ```
-  
+
 ## License
 JXRollView is distributed under the terms and conditions of the [MIT LICENSE](http://rem.mit-license.org/).
 
